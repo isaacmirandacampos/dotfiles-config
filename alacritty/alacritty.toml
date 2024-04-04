@@ -1,0 +1,52 @@
+[font]
+normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
+size = 14.0
+
+[shell]
+program = "zellij"
+
+[cursor]
+vi_mode_style = "Beam"
+
+[cursor.style]
+shape = "Beam"
+
+[window]
+opacity = 0.95
+decorations = "none"
+
+[window.dimensions]
+columns = 130
+lines = 40
+
+[colors.primary]
+background = "0x11162f"
+foreground = "0xb58900"
+
+[colors.normal]
+black = "0x1d202f"
+red = "0xf7768e"
+green = "0x9ece6a"
+yellow = "0xe0af68"
+blue = "0x7aa2f7"
+magenta = "0xbb9af7"
+cyan = "0x7dcfff"
+white = "0xa9b1d6"
+
+[colors.bright]
+black = "0x414868"
+red = "0xf7768e"
+green = "0x9ece6a"
+yellow = "0xe0af68"
+blue = "0x7aa2f7"
+magenta = "0xbb9af7"
+cyan = "0x7dcfff"
+white = "0xc0caf5"
+
+[[colors.indexed_colors]]
+index = 16
+color = "0xff9e64"
+
+[[colors.indexed_colors]]
+index = 17
+color = "0xdb4b4b"
