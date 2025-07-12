@@ -1,0 +1,42 @@
+theme = "onedark_transparent"
+
+[editor]
+rulers = [120]
+idle-timeout = 30
+color-modes = true
+line-number = "relative"
+bufferline = "multiple"
+auto-completion = true
+auto-format = true
+mouse = true
+end-of-line-diagnostics = "hint"
+
+[editor.inline-diagnostics]
+cursor-line = "warning"
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = false
+
+[editor.indent-guides]
+render = true
+character = "|"
+skip-levels = 1
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.statusline]
+left = ["mode", "spinner", "file-name"]
+center = ["position"]
+right = ["selections", "file-encoding", "version-control"]
+separator = "|"
+mode.normal = "N"
+mode.insert = "I"
+mode.select = "S"
+
+[keys.normal.space]
+# Copy entire buffer into clipboard:
+"space" = ["save_selection", "select_all", "yank_main_selection_to_clipboard", "jump_backward"]

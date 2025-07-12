@@ -1,0 +1,7 @@
+inherits = "onedark"
+"ui.background" = {}
+
+"ui.cursor.multi.normal" = { bg = "#d33682" }
+"ui.cursor.multi.insert" = { bg = "#2aa198" }
+"ui.cursor.multi.select" = { bg = "#6c71c4" }
+

@@ -1,0 +1,44 @@
+[[language]]
+name = "typescript"
+language-servers = [
+  { name = "typescript-language-server", except-features = ["format"] },
+  "efm-lsp-prettier"
+]
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+auto-format = true
+
+[[language]]
+name = "tsx"
+language-servers = [
+  { name = "typescript-language-server", except-features = ["format"] },
+  "efm-lsp-prettier"
+]
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+auto-format = true
+
+# JavaScript
+[[language]]
+name = "javascript"
+language-servers = [
+  { name = "typescript-language-server", except-features = ["format"] },
+  "efm-lsp-prettier"
+]
+formatter = { command = "prettier", args = ["--parser", "babel"] }
+auto-format = true
+
+# Python
+[[language]]
+name = "python"
+language-servers = [
+  { name = "pyright", except-features = ["format"] },
+  "efm-lsp-black"
+]
+formatter = { command = "black", args = ["-"] }
+auto-format = true
+
+# Go
+[[language]]
+name = "go"
+language-servers = ["gopls"]
+formatter = { command = "gofmt" }
+auto-format = true
