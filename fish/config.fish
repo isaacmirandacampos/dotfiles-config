@@ -41,6 +41,9 @@ set -g fish_pager_color_completion $foreground
 set -g fish_pager_color_description $base01
 set -g fish_pager_color_selected_background --background=$selection
 
+# Starship
+set -g fish_cursor_default block
+
 # Homebrew
 set -gx PATH /opt/homebrew/bin $PATH
 eval (/opt/homebrew/bin/brew shellenv)
