@@ -1,0 +1,7 @@
+# Skitty Notes Layout Configuration
+# This layout creates a main workspace with floating notes panel
+
+session_name="skitty-workspace"
+main_window="main"
+notes_window="notes"
+notes_file="$HOME/workspaces/personal/Brain/current.md" 

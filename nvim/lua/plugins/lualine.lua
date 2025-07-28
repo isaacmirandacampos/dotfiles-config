@@ -17,7 +17,7 @@
 --     }
 --   end,
 -- }
--- Filename: ~/github/dotfiles-latest/neovim/neobean/lua/plugins/lualine.lua
+-- Filename: ~/.config/neovim/neobean/lua/plugins/lualine.lua
 -- Description: Optimized Lualine configuration for Neovim.
 
 -- Other separator symbols:

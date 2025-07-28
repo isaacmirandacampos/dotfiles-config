@@ -1,7 +1,7 @@
 -- https://github.com/HakonHarnes/img-clip.nvim
 
--- Filename: ~/github/dotfiles-latest/neovim/neobean/lua/plugins/img-clip.lua
--- ~/github/dotfiles-latest/neovim/neobean/lua/plugins/img-clip.lua
+-- Filename: ~/.config/neovim/neobean/lua/plugins/img-clip.lua
+-- ~/.config/neovim/neobean/lua/plugins/img-clip.lua
 
 return {
   "HakonHarnes/img-clip.nvim",

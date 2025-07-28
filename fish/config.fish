@@ -1,5 +1,4 @@
 set fish_greeting ""
-export STARSHIP_CONFIG=~/example/non/default/path/starship.toml
 
 # theme
 # set -g theme_color_scheme terminal-dark
@@ -49,7 +48,7 @@ eval (/opt/homebrew/bin/brew shellenv)
 alias venv="python3 -m venv .venv && source .venv/bin/activate"
 alias lg='lazygit'
 alias ld='lazydocker'
-alias vim="nvim"
+alias t='tmux-sessionizer'
 
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
   --highlight-line \
@@ -83,10 +82,6 @@ set -gx PKG_CONFIG_PATH /opt/homebrew/opt/curl/lib/pkgconfig
 
 set -gx PATH /opt/homebrew/bin /opt/homebrew/sbin /usr/local/bin /usr/bin /bin /usr/sbin /sbin $PATH
 
-command -qv nvim && alias vim nvim
-
-set -gx EDITOR nvim
-
 set -gx PATH bin $PATH
 set -gx PATH ~/bin $PATH
 set -gx PATH ~/.local/bin $PATH
@@ -106,6 +101,12 @@ set -x _ZO_DATA_DIR ~/.local/share/zoxide/
 # Enable fzf key bindings
 source (brew --prefix)/opt/fzf/shell/key-bindings.fish
 
+# tmux-sessionizer
+set PATH "$PATH":"$HOME/.config/tmux/"
+
+bind \cf tmux-sessionizer
+# tmux-sessionizer end
+
 # pnpm
 set -gx PNPM_HOME /Users/isaacdmcampos/Library/pnpm
 if not string match -q -- $PNPM_HOME $PATH
@@ -113,5 +114,10 @@ if not string match -q -- $PNPM_HOME $PATH
 end
 # pnpm end
 
-# awrit
+# write
 set --export PATH /Users/isaacdmcampos/.local/bin $PATH
+
+# starship
+# export STARSHIP_CONFIG=~/.config/fish/starship.toml
+# starship init fish | source
+# starship end

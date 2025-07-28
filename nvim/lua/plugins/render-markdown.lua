@@ -1,5 +1,5 @@
--- Filename: ~/github/dotfiles-latest/neovim/neobean/lua/plugins/render-markdown.lua
--- ~/github/dotfiles-latest/neovim/neobean/lua/plugins/render-markdown.lua
+-- Filename: ~/.config/neovim/neobean/lua/plugins/render-markdown.lua
+-- ~/.config/neovim/neobean/lua/plugins/render-markdown.lua
 
 -- https://github.com/MeanderingProgrammer/markdown.nvim
 --

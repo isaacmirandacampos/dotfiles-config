@@ -1,5 +1,5 @@
--- Filename: ~/github/dotfiles-latest/neovim/neobean/lua/plugins/snacks.lua
--- ~/github/dotfiles-latest/neovim/neobean/lua/plugins/snacks.lua
+-- Filename: ~/.config/neovim/neobean/lua/plugins/snacks.lua
+-- ~/.config/neovim/neobean/lua/plugins/snacks.lua
 
 -- https://github.com/folke/snacks.nvim/blob/main/docs/lazygit.md
 -- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md
@@ -174,7 +174,7 @@ return {
       -- Documentation for the picker
       -- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md
       picker = {
-        -- My ~/github/dotfiles-latest/neovim/lazyvim/lua/config/keymaps.lua
+        -- My ~/.config/neovim/lazyvim/lua/config/keymaps.lua
         -- file was always showing at the top, I needed a way to decrease its
         -- score, in frecency you could use :FrecencyDelete to delete a file
         -- from the database, here you can decrease it's score

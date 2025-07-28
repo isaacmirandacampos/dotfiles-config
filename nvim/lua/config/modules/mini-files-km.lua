@@ -1,5 +1,5 @@
--- Filename: ~/github/dotfiles-latest/neovim/neobean/lua/config/modules/mini-files-km.lua
--- ~/github/dotfiles-latest/neovim/neobean/lua/config/modules/mini-files-km.lua
+-- Filename: ~/.config/neovim/neobean/lua/config/modules/mini-files-km.lua
+-- ~/.config/neovim/neobean/lua/config/modules/mini-files-km.lua
 
 local M = {}
 

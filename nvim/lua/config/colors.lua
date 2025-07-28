@@ -1,4 +1,4 @@
--- ~/github/dotfiles-latest/neovim/neobean/lua/config/colors.lua
+-- ~/.config/neovim/neobean/lua/config/colors.lua
 
 -- load the colors once when the module is required and then expose the colors
 -- directly. This avoids the need to call load_colors() in every file

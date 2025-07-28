@@ -1,0 +1,7 @@
+# Configurações do banco de dados
+database:
+  container_name: ""
+  user: "postgres"
+  name: "dev"
+  host: "127.0.0.1"
+  port: 5432
