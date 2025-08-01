@@ -78,6 +78,8 @@ return {
     bullet = {
       -- Turn on / off list bullet rendering
       enabled = true,
+      right_pad = 1,
+      left_pad = 1,
     },
     checkbox = {
       -- Turn on / off checkbox state rendering

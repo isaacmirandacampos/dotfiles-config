@@ -1,11 +1,40 @@
--- Keymaps are automatically loaded on the VeryLazy event
--- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
--- Add any additional keymaps here
-
 local wk = require("which-key")
-
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
+
+-- Do things without affecting the registers
+keymap.set("n", "x", '"_x')
+keymap.set("n", "<Leader>p", '"0p')
+keymap.set("n", "<Leader>P", '"0P')
+keymap.set("v", "<Leader>p", '"0p')
+keymap.set("n", "<Leader>c", '"_c')
+keymap.set("n", "<Leader>C", '"_C')
+keymap.set("v", "<Leader>c", '"_c')
+keymap.set("v", "<Leader>C", '"_C')
+keymap.set("n", "<Leader>d", '"_d')
+keymap.set("n", "<Leader>D", '"_D')
+keymap.set("v", "<Leader>d", '"_d')
+keymap.set("v", "<Leader>D", '"_D')
+
+-- Increment/decrement
+keymap.set("n", "+", "<C-a>")
+keymap.set("n", "-", "<C-x>")
+
+-- Delete a word backwards
+keymap.set("n", "dw", 'vb"_d')
+
+-- Select all
+keymap.set("n", "<C-a>", "gg<S-v>G")
+
+-- Save with root permission (not working for now)
+--vim.api.nvim_create_user_command('W', 'w !sudo tee > /dev/null %', {})
+
+-- Disable continuations
+keymap.set("n", "<Leader>o", "o<Esc>^Da", opts)
+keymap.set("n", "<Leader>O", "O<Esc>^Da", opts)
+
+-- Jumplist
+keymap.set("n", "<C-m>", "<C-i>", opts)
 
 -- New tab
 keymap.set("n", "te", ":tabedit")
@@ -20,36 +49,27 @@ keymap.set("n", "sk", "<C-w>k")
 keymap.set("n", "sj", "<C-w>j")
 keymap.set("n", "sl", "<C-w>l")
 
--- Override sidebar neotree
--- keymap.set("n", "<leader>e", ":Neotree toggle float<CR>", opts)
+-- Resize window
+keymap.set("n", "<C-w><left>", "<C-w><")
+keymap.set("n", "<C-w><right>", "<C-w>>")
+keymap.set("n", "<C-w><up>", "<C-w>+")
+keymap.set("n", "<C-w><down>", "<C-w>-")
 
--- Delete a word backwards
-keymap.set("n", "dw", 'vb"_d')
-
--- Select all
-keymap.set("n", "<C-a>", "gg<S-v>G")
-
--- Move lines using Alt + Arrow keys
-keymap.set("n", "<A-Up>", ":m .-2<CR>==", opts)
-keymap.set("n", "<A-Down>", ":m .+1<CR>==", opts)
-
-keymap.set("v", "<A-Up>", ":m '<-2<CR>gv=gv", opts)
-keymap.set("v", "<A-Down>", ":m '>+1<CR>gv=gv", opts)
-
--- Jumplist
-keymap.set("n", "<C-m>", "<C-i>", opts)
+-- Diagnostics
+keymap.set("n", "<C-j>", function()
+	vim.diagnostic.goto_next()
+end, opts)
 
 keymap.set("n", "<leader>r", function()
-  require("craftzdog.hsl").replaceHexWithHSL()
+	require("craftzdog.hsl").replaceHexWithHSL()
 end)
 
 keymap.set("n", "<leader>i", function()
-  require("craftzdog.lsp").toggleInlayHints()
+	require("craftzdog.lsp").toggleInlayHints()
 end)
---
--- functions
+
 vim.api.nvim_create_user_command("ToggleAutoformat", function()
-  require("craftzdog.lsp").toggleAutoformat()
+	require("craftzdog.lsp").toggleAutoformat()
 end, {})
 
 wk.add({
@@ -68,6 +88,7 @@ wk.add({
 keymap.set({ "n", "v" }, "gh", "^", { desc = "[P]Go to the beginning line" })
 keymap.set({ "n", "v" }, "gl", "$", { desc = "[P]go to the end of the line" })
 keymap.set("v", "gl", "$h", { desc = "[P]Go to the end of the line" })
+
 
 -- Replaces the word I'm currently on, opens a terminal so that I start typing the new word
 -- It replaces the word globally across the entire file
@@ -94,196 +115,6 @@ vim.keymap.set(
   { desc = "[P]GLOBALLY replace word I'm on with lowercase" }
 )
 
--- ############################################################################
-
--- HACK: Upload images from Neovim to Imgur
--- https://youtu.be/Lzl_0SzbUBo
---
--- Open image under cursor in the Preview app (macOS)
-vim.keymap.set("n", "<leader>io", function()
-  local function get_image_path()
-    -- Get the current line
-    local line = vim.api.nvim_get_current_line()
-    -- Pattern to match image path in Markdown
-    local image_pattern = "%[.-%]%((.-)%)"
-    -- Extract relative image path
-    local _, _, image_path = string.find(line, image_pattern)
-    return image_path
-  end
-  -- Get the image path
-  local image_path = get_image_path()
-  if image_path then
-    -- Check if the image path starts with "http" or "https"
-    if string.sub(image_path, 1, 4) == "http" then
-      print("URL image, use 'gx' to open it in the default browser.")
-    else
-      -- Construct absolute image path
-      local current_file_path = vim.fn.expand("%:p:h")
-      local absolute_image_path = current_file_path .. "/" .. image_path
-      -- Construct command to open image in Preview
-      local command = "open -a Preview " .. vim.fn.shellescape(absolute_image_path)
-      -- Execute the command
-      local success = os.execute(command)
-      if success then
-        print("Opened image in Preview: " .. absolute_image_path)
-      else
-        print("Failed to open image in Preview: " .. absolute_image_path)
-      end
-    end
-  else
-    print("No image found under the cursor")
-  end
-end, { desc = "[P](macOS) Open image under cursor in Preview" })
-
--- ############################################################################
---
-
--- HACK: Upload images from Neovim to Imgur
--- https://youtu.be/Lzl_0SzbUBo
---
--- Open image under cursor in Finder (macOS)
---
--- THIS ONLY WORKS IF YOU'RE NNNNNOOOOOOTTTTT USING ABSOLUTE PATHS,
--- BUT INSTEAD YOURE USING RELATIVE PATHS
---
--- If using absolute paths, use the default `gx` to open the image instead
-vim.keymap.set("n", "<leader>if", function()
-  local function get_image_path()
-    -- Get the current line
-    local line = vim.api.nvim_get_current_line()
-    -- Pattern to match image path in Markdown
-    local image_pattern = "%[.-%]%((.-)%)"
-    -- Extract relative image path
-    local _, _, image_path = string.find(line, image_pattern)
-    return image_path
-  end
-  -- Get the image path
-  local image_path = get_image_path()
-  if image_path then
-    -- Check if the image path starts with "http" or "https"
-    if string.sub(image_path, 1, 4) == "http" then
-      print("URL image, use 'gx' to open it in the default browser.")
-    else
-      -- Construct absolute image path
-      local current_file_path = vim.fn.expand("%:p:h")
-      local absolute_image_path = current_file_path .. "/" .. image_path
-      -- Open the containing folder in Finder and select the image file
-      local command = "open -R " .. vim.fn.shellescape(absolute_image_path)
-      local success = vim.fn.system(command)
-      if success == 0 then
-        print("Opened image in Finder: " .. absolute_image_path)
-      else
-        print("Failed to open image in Finder: " .. absolute_image_path)
-      end
-    end
-  else
-    print("No image found under the cursor")
-  end
-end, { desc = "[P](macOS) Open image under cursor in Finder" })
-
--- ############################################################################
---
--- Delete image file under cursor using trash app (macOS)
-vim.keymap.set("n", "<leader>id", function()
-  local function get_image_path()
-    local line = vim.api.nvim_get_current_line()
-    local image_pattern = "%[.-%]%((.-)%)"
-    local _, _, image_path = string.find(line, image_pattern)
-    return image_path
-  end
-  local image_path = get_image_path()
-  if not image_path then
-    vim.api.nvim_echo({ { "No image found under the cursor", "WarningMsg" } }, false, {})
-    return
-  end
-  if string.sub(image_path, 1, 4) == "http" then
-    vim.api.nvim_echo({ { "URL image cannot be deleted from disk.", "WarningMsg" } }, false, {})
-    return
-  end
-  local current_file_path = vim.fn.expand("%:p:h")
-  local absolute_image_path = current_file_path .. "/" .. image_path
-  -- Check if file exists
-  if vim.fn.filereadable(absolute_image_path) == 0 then
-    vim.api.nvim_echo(
-      { { "Image file does not exist:\n", "ErrorMsg" }, { absolute_image_path, "ErrorMsg" } },
-      false,
-      {}
-    )
-    return
-  end
-  if vim.fn.executable("trash") == 0 then
-    vim.api.nvim_echo({
-      { "- Trash utility not installed. Make sure to install it first\n", "ErrorMsg" },
-      { "- In macOS run `brew install trash`\n", nil },
-    }, false, {})
-    return
-  end
-  -- Cannot see the popup as the cursor is on top of the image name, so saving
-  -- its position, will move it to the top and then move it back
-  local current_pos = vim.api.nvim_win_get_cursor(0) -- Save cursor position
-  vim.api.nvim_win_set_cursor(0, { 1, 0 }) -- Move to top
-  vim.ui.select({ "yes", "no" }, { prompt = "Delete image file? " }, function(choice)
-    vim.api.nvim_win_set_cursor(0, current_pos) -- Move back to image line
-    if choice == "yes" then
-      local success, _ = pcall(function()
-        vim.fn.system({ "trash", vim.fn.fnameescape(absolute_image_path) })
-      end)
-      -- Verify if file still exists after deletion attempt
-      if success and vim.fn.filereadable(absolute_image_path) == 1 then
-        -- Try with rm if trash deletion failed
-        -- Keep in mind that if deleting with `rm` the images won't go to the
-        -- macos trash app, they'll be gone
-        -- This is useful in case trying to delete imaes mounted in a network
-        -- drive, like for my blogpost lamw25wmal
-        --
-        -- Cannot see the popup as the cursor is on top of the image name, so saving
-        -- its position, will move it to the top and then move it back
-        current_pos = vim.api.nvim_win_get_cursor(0) -- Save cursor position
-        vim.api.nvim_win_set_cursor(0, { 1, 0 }) -- Move to top
-        vim.ui.select({ "yes", "no" }, { prompt = "Trash deletion failed. Try with rm command? " }, function(rm_choice)
-          vim.api.nvim_win_set_cursor(0, current_pos) -- Move back to image line
-          if rm_choice == "yes" then
-            local rm_success, _ = pcall(function()
-              vim.fn.system({ "rm", vim.fn.fnameescape(absolute_image_path) })
-            end)
-            if rm_success and vim.fn.filereadable(absolute_image_path) == 0 then
-              vim.api.nvim_echo({
-                { "Image file deleted from disk using rm:\n", "Normal" },
-                { absolute_image_path, "Normal" },
-              }, false, {})
-              -- require("image").clear()
-              vim.cmd("edit!")
-              vim.cmd("normal! dd")
-            else
-              vim.api.nvim_echo({
-                { "Failed to delete image file with rm:\n", "ErrorMsg" },
-                { absolute_image_path, "ErrorMsg" },
-              }, false, {})
-            end
-          end
-        end)
-      elseif success and vim.fn.filereadable(absolute_image_path) == 0 then
-        vim.api.nvim_echo({
-          { "Image file deleted from disk:\n", "Normal" },
-          { absolute_image_path, "Normal" },
-        }, false, {})
-        -- require("image").clear()
-        vim.cmd("edit!")
-        vim.cmd("normal! dd")
-      else
-        vim.api.nvim_echo({
-          { "Failed to delete image file:\n", "ErrorMsg" },
-          { absolute_image_path, "ErrorMsg" },
-        }, false, {})
-      end
-    else
-      vim.api.nvim_echo({ { "Image deletion canceled.", "Normal" } }, false, {})
-    end
-  end)
-end, { desc = "[P](macOS) Delete image file under cursor" })
-
--- ############################################################################
---
 
 -- Generate/update a Markdown TOC
 -- To generate the TOC I use the markdown-toc plugin
@@ -506,6 +337,7 @@ local function multilineBoldAttempt()
     vim.notify("Bolded current word", vim.log.levels.INFO)
   end
 end
+
 
 -- Crate task or checkbox lamw26wmal
 -- These are marked with <leader>x using bullets.vim
@@ -764,13 +596,6 @@ vim.keymap.set("n", "<M-x>", function()
   vim.cmd("silent update")
   vim.cmd("loadview")
 end, { desc = "[P]Toggle task and move it to 'done'" })
-
-wk.add({
-  { "<leader>i", group = "Images" },
-  { "<leader>io", desc = "[P](macOS) Open image under cursor in Preview" },
-  { "<leader>if", desc = "[P](macOS) Open image under cursor in Finder" },
-  { "<leader>id", desc = "[P](macOS) Delete image file under cursor" },
-})
 
 wk.add({
   { "<leader>m", group = "Markdown" },

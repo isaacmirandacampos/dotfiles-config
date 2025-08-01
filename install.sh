@@ -33,13 +33,16 @@ brew install kitty
 chsh -s $(which fish)
 
 ## Use dotfiles config
-ln -s $HOME/.dotfiles-config/fish $HOME/.config/fish
-ln -s $HOME/.dotfiles-config/tmux $HOME/.config/tmux
-ln -s $HOME/.dotfiles-config/btop $HOME/.config/btop
-ln -s $HOME/.dotfiles-config/kitty $HOME/.config/kitty
-ln -s $HOME/.dotfiles-config/nvim $HOME/.config/nvim
-ln -s $HOME/.dotfiles-config/.aerospace.toml $HOME/.aerospace.toml
-ln -s $HOME/.dotfiles-config/git $HOME/.config/git
+ln -sf $HOME/dotfiles-config/fish $HOME/.config/fish
+ln -sf $HOME/dotfiles-config/tmux $HOME/.config/tmux
+ln -sf $HOME/dotfiles-config/btop $HOME/.config/btop
+ln -sf $HOME/dotfiles-config/kitty $HOME/.config/kitty
+ln -sf $HOME/dotfiles-config/nvim $HOME/.config/nvim
+ln -sf $HOME/dotfiles-config/.aerospace.toml $HOME/.aerospace.toml
+ln -sf $HOME/dotfiles-config/git $HOME/.config/git
+ln -sf $HOME/dotfiles-config/.markdownlint.yaml $HOME/.config/.markdownlint.yaml
+ln -sf $HOME/dotfiles-config/.aerospace.toml $HOME/.aerospace.toml
+ln -sf $HOME/dotfiles-config/starship.toml $HOME/.config/starship.toml
 
 ### Load fish config
 source ~/.config/fish/config.fish
