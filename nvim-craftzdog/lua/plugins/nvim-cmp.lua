@@ -1,6 +1,7 @@
 return {
   "hrsh7th/nvim-cmp",
   ---@param opts cmp.ConfigSchema
+  enabled = false,
   dependencies = {
     "hrsh7th/cmp-emoji",
     {

@@ -85,6 +85,77 @@ wk.add({
   { "<leader>ol", ":ObsidianLinks<CR>", desc = "Links" },
 })
 
+wk.add({
+  {
+    mode = { "n" },
+    { "<leader>t", group = "[P]todo" },
+  },
+  {
+    mode = { "n", "v" },
+    { "<leader>m", group = "[P]markdown" },
+    { "<leader>mh", group = "[P]headings increase/decrease" },
+    { "<leader>ms", group = "[P]spell" },
+    { "<leader>msl", group = "[P]language" },
+  },
+})
+
+
+-- Spelling language
+vim.keymap.set("n", "<leader>msle", function()
+  vim.opt.spelllang = "en"
+  vim.cmd("echo 'Spell language set to English'")
+end, { desc = "[P]Spelling language English" })
+
+vim.keymap.set("n", "<leader>mslp", function()
+  vim.opt.spelllang = "pt_br"
+  vim.cmd("echo 'Spell language set to Portuguese'")
+end, { desc = "[P]Spelling language Portuguese" })
+
+vim.keymap.set("n", "<leader>mslb", function()
+  vim.opt.spelllang = "en,es,pt_br"
+  vim.cmd("echo 'Spell language set to multiples languages'")
+end, { desc = "[P]Spelling multiples languages" })
+
+-- markdown good, accept spell suggestion
+-- Add word under the cursor as a good word
+vim.keymap.set("n", "<leader>msg", function()
+  vim.cmd("normal! zg")
+  -- I do a write so that harper is updated
+  vim.cmd("silent write")
+end, { desc = "[P]Spelling add word to spellfile" })
+
+-- HACK: neovim spell multiple languages
+-- https://youtu.be/uLFAMYFmpkE
+--
+-- Undo zw, remove the word from the entry in 'spellfile'.
+vim.keymap.set("n", "<leader>msu", function()
+  vim.cmd("normal! zug")
+end, { desc = "[P]Spelling undo, remove word from list" })
+
+
+vim.keymap.set("n", "<leader>mhI", function()
+  -- Save the current cursor position
+  local cursor_pos = vim.api.nvim_win_get_cursor(0)
+  -- I'm using [[ ]] to escape the special characters in a command
+  vim.cmd([[:g/\(^$\n\s*#\+\s.*\n^$\)/ .+1 s/^#\+\s/#&/]])
+  -- Restore the cursor position
+  vim.api.nvim_win_set_cursor(0, cursor_pos)
+  -- Clear search highlight
+  vim.cmd("nohlsearch")
+end, { desc = "[P]Increase headings without confirmation" })
+
+vim.keymap.set("n", "<leader>mhD", function()
+  -- Save the current cursor position
+  local cursor_pos = vim.api.nvim_win_get_cursor(0)
+  -- I'm using [[ ]] to escape the special characters in a command
+  vim.cmd([[:g/^\s*#\{2,}\s/ s/^#\(#\+\s.*\)/\1/]])
+  -- Restore the cursor position
+  vim.api.nvim_win_set_cursor(0, cursor_pos)
+  -- Clear search highlight
+  vim.cmd("nohlsearch")
+end, { desc = "[P]Decrease headings without confirmation" })
+
+-- Go to the beginning/end of the line
 keymap.set({ "n", "v" }, "gh", "^", { desc = "[P]Go to the beginning line" })
 keymap.set({ "n", "v" }, "gl", "$", { desc = "[P]go to the end of the line" })
 keymap.set("v", "gl", "$h", { desc = "[P]Go to the end of the line" })

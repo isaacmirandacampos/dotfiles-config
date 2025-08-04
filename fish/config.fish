@@ -124,3 +124,6 @@ set --export PATH /Users/isaacdmcampos/.local/bin $PATH
 # export STARSHIP_CONFIG=~/.config/fish/starship.toml
 # starship init fish | source
 # starship end
+
+# opencode
+fish_add_path /Users/isaacdmcampos/.opencode/bin

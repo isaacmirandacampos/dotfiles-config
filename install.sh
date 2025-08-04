@@ -43,6 +43,8 @@ ln -sf $HOME/dotfiles-config/git $HOME/.config/git
 ln -sf $HOME/dotfiles-config/.markdownlint.yaml $HOME/.config/.markdownlint.yaml
 ln -sf $HOME/dotfiles-config/.aerospace.toml $HOME/.aerospace.toml
 ln -sf $HOME/dotfiles-config/starship.toml $HOME/.config/starship.toml
+ln -sf $HOME/dotfiles-config/dictionaries $HOME/.config/dictionaries
+ln -sf $HOME/dotfiles-config/tmux/tmux.conf $HOME/.tmux.conf
 
 ### Load fish config
 source ~/.config/fish/config.fish
