@@ -31,11 +31,8 @@ brew install zoxide
 ## Install kitty
 brew install kitty
 
-## Install superfile
-brew install superfile
-
 ## Install yazi
-brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide resvg imagemagick font-symbols-only-nerd-font
+brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide resvg imagemagick font-symbols-only-nerd-font ouch rich-cli
 
 ## Use fish as default shell
 chsh -s $(which fish)
@@ -54,12 +51,6 @@ ln -sf $HOME/dotfiles-config/starship.toml $HOME/.config/starship.toml
 ln -sf $HOME/dotfiles-config/dictionaries $HOME/.config/dictionaries
 ln -sf $HOME/dotfiles-config/tmux/tmux.conf $HOME/.tmux.conf
 ln -sf $HOME/dotfiles-config/yazi $HOME/.config/yazi
-
----
-### Superfile
-ln -sf $HOME/dotfiles-config/superfile $HOME/.config/superfile
-spf -c $HOME/dotfiles-config/superfile/config.toml
----
 
 ### Load fish config
 source ~/.config/fish/config.fish

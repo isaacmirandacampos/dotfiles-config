@@ -14,6 +14,7 @@ For use this configs, you need to install the following tools:
 - [fisher](https://github.com/jorgebucaran/fisher)
 - [zoxide](https://github.com/ajeetdsouza/zoxide)
 - [btop](https://github.com/aristocratos/btop)
+- yazi
 
 ## Install
 

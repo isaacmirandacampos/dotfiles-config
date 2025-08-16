@@ -14,7 +14,7 @@ run = "cd ~/workspaces/gl"
 desc = "Go GL"
 
 [[mgr.prepend_keymap]]
-on = ["g", "b"]
+on = ["g", "z"]
 run = "cd ~/workspaces/personal/Brain"
 desc = "Go Brain"
 

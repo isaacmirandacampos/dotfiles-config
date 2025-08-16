@@ -15,8 +15,6 @@ wrap = "yes"
 tab_size = 2
 max_width = 1600
 max_height = 2000
-# ueberzug_offset = [0, 0, 0, 0]
-# image_delay = 0
 
 [opener]
 edit = [
@@ -36,12 +34,11 @@ prepend_previewers = [
     { mime = "application/x-7z-compressed", run = "ouch" },
     { mime = "application/x-rar", run = "ouch" },
     { mime = "application/x-xz", run = "ouch" },
-    { name = "*.md", run  = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"'},
+    { name = "*.{md,json,bash,ts,js,py,go,lua,rs,sql,yaml,fish,sh,bash}", run  = 'piper -- bat -p --color=always "$1"'},
     { name = "*.{pdb,pqr}", run = "cursor" },
     { mime = "audio/*", run = "exifaudio" },
     { mime = "application/x-bittorrent", run = "torrent-preview" },
     { name = "*.ipynb", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"'},
-    { name = "*.json", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"'},
     { name = "*.rst", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"'},
     { name = "*.csv", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"'},
 ]
