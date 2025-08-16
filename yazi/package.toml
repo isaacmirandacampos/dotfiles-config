@@ -103,6 +103,21 @@ use = "yazi-rs/plugins:zoom"
 rev = "7c174cc"
 hash = "23d704e18d864036fc65c188bc6b2e47"
 
+[[plugin.deps]]
+use = "boydaihungst/pref-by-location"
+rev = "882e752"
+hash = "f45cf212024c85b5f0ea0423e27196a"
+
+[[plugin.deps]]
+use = "Ape/open-with-cmd"
+rev = "433cf30"
+hash = "86e0312b01bc5762813c6c1d0517f073"
+
+[[plugin.deps]]
+use = "Lil-Dank/lazygit"
+rev = "8f37dc5"
+hash = "ee71543790f0ce3951161045a3787abd"
+
 [[flavor.deps]]
 use = "yazi-rs/flavors:catppuccin-mocha"
 rev = "d04a298"

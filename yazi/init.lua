@@ -105,3 +105,38 @@ end
 -- end
 
 -- Status:children_add(Status_owner, 500, Status.RIGHT)
+
+local pref_by_location = require("pref-by-location")
+pref_by_location:setup({
+	-- Disable this plugin completely.
+	-- disabled = false -- true|false (Optional)
+
+	-- Hide "enable" and "disable" notifications.
+	-- no_notify = false -- true|false (Optional)
+
+	prefs = { -- (Optional)
+		{
+			location = ".*/Downloads",
+			sort = { "btime", reverse = true, dir_first = true },
+			show_hidden = true,
+		},
+
+		{
+			location = ".*/.config",
+			sort = { "alphabetical", reverse = true, dir_first = true },
+			show_hidden = true,
+		},
+	},
+})
+
+function Linemode:size_and_btime()
+	local time = math.floor(self._file.cha.btime or 0)
+	if time == 0 then
+		time = ""
+	else
+		time = os.date("%d/%m %H:%M", time)
+	end
+
+	local size = self._file:size()
+	return string.format("%s %s", size and ya.readable_size(size) or "-", time)
+end

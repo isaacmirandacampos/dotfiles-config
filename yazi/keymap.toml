@@ -9,7 +9,7 @@ run = "cd ~/workspaces/beekoff"
 desc = "Go Beekoff"
 
 [[mgr.prepend_keymap]]
-on = ["g", "g"]
+on = ["g", "l"]
 run = "cd ~/workspaces/gl"
 desc = "Go GL"
 
@@ -19,41 +19,28 @@ run = "cd ~/workspaces/personal/Brain"
 desc = "Go Brain"
 
 [[mgr.prepend_keymap]]
-on = ["u", "a"]
-run = "plugin yamb save"
-desc = "Add bookmark"
+on   = ["z"]
+run  = 'plugin zoxide'
+desc = "zoxide to a folder"
 
 [[mgr.prepend_keymap]]
-on = ["u", "g"]
-run = "plugin yamb jump_by_key"
-desc = "Jump bookmark by key"
+on = [ "g", "e" ]
+run = "shell 'cursor \"$@\"'"
+desc = "Open with Cursor"
 
 [[mgr.prepend_keymap]]
-on = ["u", "G"]
-run = "plugin yamb jump_by_fzf"
-desc = "Jump bookmark by fzf"
+on = [ "g", "f" ]
+run = "shell 'open .'"
+desc = "Open with Finder"
 
 [[mgr.prepend_keymap]]
-on = ["u", "d"]
-run = "plugin yamb delete_by_key"
-desc = "Delete bookmark by key"
+on = [ "g", "t" ]
+run = "shell 'open -a Kitty .'"
+desc = "Open Terminal"
 
 [[mgr.prepend_keymap]]
-on = ["u", "D"]
-run = "plugin yamb delete_by_fzf"
-desc = "Delete bookmark by fzf"
+on   = [ "g", "i" ]
+run  = "plugin lazygit"
+desc = "run lazygit"
 
-[[mgr.prepend_keymap]]
-on = ["u", "A"]
-run = "plugin yamb delete_all"
-desc = "Delete all bookmarks"
 
-[[mgr.prepend_keymap]]
-on = ["u", "r"]
-run = "plugin yamb rename_by_key"
-desc = "Rename bookmark by key"
-
-[[mgr.prepend_keymap]]
-on = ["u", "R"]
-run = "plugin yamb rename_by_fzf"
-desc = "Rename bookmark by fzf"
