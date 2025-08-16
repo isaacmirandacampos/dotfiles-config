@@ -17,7 +17,6 @@ return {
     keys = {
       -- I use this keymap with mini.files, but snacks explorer was taking over
       -- https://github.com/folke/snacks.nvim/discussions/949
-      { "<leader>e", false },
       {
         "<leader>sg",
         function()
@@ -174,6 +173,10 @@ return {
       -- Documentation for the picker
       -- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md
       picker = {
+        sources = {
+          files = { hidden = true },
+        },
+
         -- My ~/.config/neovim/lazyvim/lua/config/keymaps.lua
         -- file was always showing at the top, I needed a way to decrease its
         -- score, in frecency you could use :FrecencyDelete to delete a file

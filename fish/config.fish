@@ -52,6 +52,8 @@ alias venv="python3 -m venv .venv && source .venv/bin/activate"
 alias lg='lazygit'
 alias ld='lazydocker'
 alias t='tmux-sessionizer'
+alias spf='spf -c $HOME/.config/superfile/config.toml'
+alias s='yazi'
 
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
   --highlight-line \
@@ -76,6 +78,8 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
   --color=separator:#063540 \
   --color=spinner:#c94c16 \
 "
+
+set -gx EDITOR nvim
 
 set -gx PATH /opt/homebrew/opt/curl/bin $PATH
 set -gx LDFLAGS -L/opt/homebrew/opt/curl/lib

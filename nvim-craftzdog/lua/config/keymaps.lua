@@ -16,6 +16,11 @@ keymap.set("n", "<Leader>D", '"_D')
 keymap.set("v", "<Leader>d", '"_d')
 keymap.set("v", "<Leader>D", '"_D')
 
+-- Switch buffer
+keymap.set("n", "L", ":bnext<CR>", opts)
+keymap.set("n", "H", ":bprevious<CR>", opts)
+
+
 -- Increment/decrement
 keymap.set("n", "+", "<C-a>")
 keymap.set("n", "-", "<C-x>")
@@ -32,6 +37,7 @@ keymap.set("n", "<C-a>", "gg<S-v>G")
 -- Disable continuations
 keymap.set("n", "<Leader>o", "o<Esc>^Da", opts)
 keymap.set("n", "<Leader>O", "O<Esc>^Da", opts)
+
 
 -- Jumplist
 keymap.set("n", "<C-m>", "<C-i>", opts)

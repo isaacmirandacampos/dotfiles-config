@@ -1,23 +1,12 @@
--- Filename: ~/.config/neovim/neobean/lua/plugins/snacks.lua
--- ~/.config/neovim/neobean/lua/plugins/snacks.lua
-
--- https://github.com/folke/snacks.nvim/blob/main/docs/lazygit.md
--- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md
--- https://github.com/folke/snacks.nvim/blob/main/docs/image.md
-
--- NOTE: If you experience an issue in which you cannot select a file with the
--- snacks picker when you're in insert mode, only in normal mode, and you use
--- the bullets.vim plugin, that's the cause, go to that file to see how to
--- resolve it
--- https://github.com/folke/snacks.nvim/issues/812
 
 return {
   {
     "folke/snacks.nvim",
     keys = {
+      { "<leader>e", false },
+      { "<leader>E", false },
       -- I use this keymap with mini.files, but snacks explorer was taking over
       -- https://github.com/folke/snacks.nvim/discussions/949
-      { "<leader>e", false },
       {
         "<leader>sg",
         function()

@@ -1,0 +1,57 @@
+# Anything apart from this follows from the default configuration
+[mgr]
+# ratio = [0, 4, 5]
+ratio = [2, 3, 5]
+sort_by = "alphabetical"
+sort_dir_first = true
+linemode = "none"
+show_hidden = false
+show_symlink = false
+scrolloff = 5
+mouse_events = ["click", "scroll", "touch", "move", "drag"]
+
+[preview]
+wrap = "yes"
+tab_size = 2
+max_width = 1600
+max_height = 2000
+# ueberzug_offset = [0, 0, 0, 0]
+# image_delay = 0
+
+[opener]
+edit = [
+    { run = 'nvim "$@"', desc = "neovim", block = true, for = "unix" },
+    { run = 'cursor "$@"', desc = "Cursor", block = false, for = "unix" },
+]
+open = [
+    { run = 'cursor "$@"', desc = "Cursor", for = "linux" },
+    { run = 'open "$@"', desc = "Open", for = "macos" },
+]
+
+[plugin]
+prepend_previewers = [
+    { mime = "application/*zip", run = "ouch" },
+    { mime = "application/x-tar", run = "ouch" },
+    { mime = "application/x-bzip2", run = "ouch" },
+    { mime = "application/x-7z-compressed", run = "ouch" },
+    { mime = "application/x-rar", run = "ouch" },
+    { mime = "application/x-xz", run = "ouch" },
+    { name = "*.md", run  = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"'},
+    { name = "*.{pdb,pqr}", run = "cursor" },
+    { mime = "audio/*", run = "exifaudio" },
+    { mime = "application/x-bittorrent", run = "torrent-preview" },
+    { name = "*.ipynb", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"'},
+    { name = "*.json", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"'},
+    { name = "*.rst", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"'},
+    { name = "*.csv", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"'},
+]
+
+[[plugin.prepend_fetchers]]
+id   = "git"
+name = "*"
+run  = "git"
+
+[[plugin.prepend_fetchers]]
+id   = "git"
+name = "*/"
+run  = "git"
