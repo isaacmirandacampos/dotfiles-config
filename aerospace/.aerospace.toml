@@ -1,15 +1,17 @@
-# Place a copy of this config to ~/.aerospace.toml
-# After that, you can edit ~/.aerospace.toml to your liking
-
 # You can use it to add commands that run after login to macOS user session.
 # 'start-at-login' needs to be 'true' for 'after-login-command' to work
 # Available commands: https://nikitabobko.github.io/AeroSpace/commands
 after-login-command = []
 
-# You can use it to add commands that run after AeroSpace startup.
-# 'after-startup-command' is run after 'after-login-command'
-# Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = []
+after-startup-command = ['exec-and-forget sketchybar']
+
+# Notify Sketchybar about workspace change
+
+exec-on-workspace-change = [
+    '/bin/bash',
+    '-c',
+    '/opt/homebrew/opt/sketchybar/bin/sketchybar --trigger aerospace_workspace_change AEROSPACE_FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE AEROSPACE_PREV_WORKSPACE=$AEROSPACE_PREV_WORKSPACE',
+]
 
 # Start AeroSpace at login
 start-at-login = true
@@ -21,7 +23,7 @@ enable-normalization-opposite-orientation-for-nested-containers = true
 # See: https://nikitabobko.github.io/AeroSpace/guide#layouts
 # The 'accordion-padding' specifies the size of accordion padding
 # You can set 0 to disable the padding feature
-accordion-padding = 0
+accordion-padding = 10
 
 # Possible values: tiles|accordion
 default-root-container-layout = 'tiles'
@@ -57,12 +59,12 @@ preset = 'qwerty'
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
 #                 See: https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
 [gaps]
-inner.horizontal = 5
-inner.vertical = 5
-outer.left = 0
-outer.bottom = 0
-outer.top = 0
-outer.right = 0
+inner.horizontal = 10
+inner.vertical = 10
+outer.left = 5
+outer.bottom = 5
+outer.top = 40
+outer.right = 5
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -125,9 +127,9 @@ alt-2 = 'workspace 2'
 alt-3 = 'workspace 3'
 alt-4 = 'workspace 4'
 alt-5 = 'workspace 5'
-alt-6 = 'workspace 6'
-alt-7 = 'workspace 7'
-alt-8 = 'workspace 8'
+alt-q = 'workspace 6'
+alt-w = 'workspace 7'
+alt-e = 'workspace 8'
 # alt-9 = 'workspace 9'
 # alt-a = 'workspace A' # In your config, you can drop workspace bindings that you don't need
 # alt-b = 'workspace B'
@@ -158,9 +160,9 @@ alt-shift-2 = 'move-node-to-workspace 2'
 alt-shift-3 = 'move-node-to-workspace 3'
 alt-shift-4 = 'move-node-to-workspace 4'
 alt-shift-5 = 'move-node-to-workspace 5'
-alt-shift-6 = 'move-node-to-workspace 6'
-alt-shift-7 = 'move-node-to-workspace 7'
-alt-shift-8 = 'move-node-to-workspace 8'
+alt-shift-q = 'move-node-to-workspace 6'
+alt-shift-w = 'move-node-to-workspace 7'
+alt-shift-e = 'move-node-to-workspace 8'
 # alt-shift-9 = 'move-node-to-workspace 9'
 # alt-shift-a = 'move-node-to-workspace A'
 # alt-shift-b = 'move-node-to-workspace B'
@@ -186,7 +188,7 @@ alt-shift-8 = 'move-node-to-workspace 8'
 # alt-shift-z = 'move-node-to-workspace Z'
 
 # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
-alt-tab = 'workspace-back-and-forth'
+# alt-tab = 'workspace-back-and-forth'
 # See: https://nikitabobko.github.io/AeroSpace/commands#move-workspace-to-monitor
 alt-shift-tab = 'move-workspace-to-monitor --wrap-around next'
 
@@ -216,13 +218,13 @@ down = 'volume down'
 up = 'volume up'
 shift-down = ['volume set 0', 'mode main']
 
-# [[on-window-detected]]
-# check-further-callbacks = true
-# run = 'layout floating'
-
 [[on-window-detected]]
 if.app-id = 'com.apple.finder'
 run = ['layout floating']
+
+[[on-window-detected]]
+if.app-id = 'com.bitwarden.desktop'
+run = 'layout floating'
 
 [[on-window-detected]]
 if.app-id = 'com.apple.systempreferences'
@@ -237,13 +239,12 @@ if.app-id = 'company.thebrowser.Browser'
 run = ['layout tiling', 'move-node-to-workspace 1']
 
 [[on-window-detected]]
+if.app-id = 'com.brave.Browser'
+run = ['layout tiling', 'move-node-to-workspace 1']
+
+[[on-window-detected]]
 if.app-id = 'net.kovidgoyal.kitty'
 run = ['layout tiling', 'move-node-to-workspace 2']
-# Primeira janela do Kitty vai para o workspace 2 (tiling).
-# As subsequentes ficam floating no workspace atual.
-# run = [
-#     'exec-and-forget /bin/fish $HOME/.config/fishscripts/aerospace/kitty-on-detected.sh',
-# ]
 
 [[on-window-detected]]
 if.app-id = 'dev.zed.Zed'

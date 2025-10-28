@@ -51,6 +51,9 @@ ln -sf $HOME/dotfiles-config/starship.toml $HOME/.config/starship.toml
 ln -sf $HOME/dotfiles-config/dictionaries $HOME/.config/dictionaries
 ln -sf $HOME/dotfiles-config/tmux/tmux.conf $HOME/.tmux.conf
 ln -sf $HOME/dotfiles-config/yazi $HOME/.config/yazi
+ln -sf $HOME/dotfiles-config/yabai $HOME/.config/yabai
+ln -sf $HOME/dotfiles-config/aerospace/.aerospace.toml $HOME/
+ln -sf $HOME/dotfiles-config/sketchybar $HOME/sketchybar
 
 ### Load fish config
 source ~/.config/fish/config.fish
