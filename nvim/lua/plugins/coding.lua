@@ -1,49 +1,47 @@
 return {
-  {
-    "zbirenbaum/copilot.lua",
-    version = "*", -- ou um commit/tag estável
-    config = function()
-      require("copilot").setup({})
-    end,
-  },
-  -- Incremental rename
-  {
-    "smjonas/inc-rename.nvim",
-    cmd = "IncRename",
-    config = true,
-  },
-  {
-    "echasnovski/mini.surround",
-    opts = {
-      mappings = {
-        add = "gsa",
-        delete = "gsd",
-        find = "gsf",
-        find_left = "gsF",
-        highlight = "gsh",
-        replace = "gsr",
-        update_n_lines = "gsn",
-      },
-    },
-  },
+	-- Incremental rename
+	{
+		"smjonas/inc-rename.nvim",
+		cmd = "IncRename",
+		config = true,
+	},
 
-  {
-    "saghen/blink.cmp",
-    optional = true,
-    dependencies = { "giuxtaposition/blink-cmp-copilot" },
-    opts = {
-      sources = {
-        default = { "copilot" },
-        providers = {
-          copilot = {
-            name = "copilot",
-            module = "blink-cmp-copilot",
-            kind = "Copilot",
-            score_offset = 100,
-            async = true,
-          },
-        },
-      },
+	-- Go forward/backward with square brackets
+	{
+		"nvim-mini/mini.bracketed",
+		event = "BufReadPost",
+		config = function()
+			local bracketed = require("mini.bracketed")
+			bracketed.setup({
+				file = { suffix = "" },
+				window = { suffix = "" },
+				quickfix = { suffix = "" },
+				yank = { suffix = "" },
+				treesitter = { suffix = "n" },
+			})
+		end,
+	},
+
+	-- Better increase/descrease
+	{
+		"monaqa/dial.nvim",
+    -- stylua: ignore
+    keys = {
+      { "<C-a>", function() return require("dial.map").inc_normal() end, expr = true, desc = "Increment" },
+      { "<C-x>", function() return require("dial.map").dec_normal() end, expr = true, desc = "Decrement" },
     },
-  },
+		config = function()
+			local augend = require("dial.augend")
+			require("dial.config").augends:register_group({
+				default = {
+					augend.integer.alias.decimal,
+					augend.integer.alias.hex,
+					augend.date.alias["%Y/%m/%d"],
+					augend.constant.alias.bool,
+					augend.semver.alias.semver,
+					augend.constant.new({ elements = { "let", "const" } }),
+				},
+			})
+		end,
+	},
 }

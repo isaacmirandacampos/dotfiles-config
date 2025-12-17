@@ -1,19 +1,17 @@
--- Options are automatically loaded before lazy.nvim startup
--- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
--- Add any additional options here
---
-vim.g.lazyvim_mini_snippets_in_completion = true
 vim.g.mapleader = " "
-
+-- vim.g.python3_host_prog = "/opt/homebrew/bin/python3"
+vim.g.python3_host_prog = "/Users/isaacdmcampos/.neovim-python/bin/python"
 vim.opt.encoding = "utf-8"
 vim.opt.fileencoding = "utf-8"
-
+vim.opt.spelllang = { "en,es,pt_br" }
 vim.opt.number = true
-
+vim.opt.conceallevel = 2
 vim.opt.title = true
 vim.opt.autoindent = true
+vim.g.lazyvim_eslint_auto_format = true
 vim.opt.smartindent = true
 vim.opt.hlsearch = true
+vim.o.guifont = "JetBrainsMono Nerd Font:h15"
 vim.opt.backup = false
 vim.opt.showcmd = true
 vim.opt.cmdheight = 1
@@ -28,7 +26,7 @@ vim.opt.smarttab = true
 vim.opt.breakindent = true
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
-vim.opt.wrap = false -- No Wrap lines
+vim.opt.wrap = true -- No Wrap lines
 vim.opt.backspace = { "start", "eol", "indent" }
 vim.opt.path:append({ "**" }) -- Finding files - Search down into subfolders
 vim.opt.wildignore:append({ "*/node_modules/*" })
@@ -48,14 +46,14 @@ vim.cmd([[au BufNewFile,BufRead *.astro setf astro]])
 vim.cmd([[au BufNewFile,BufRead Podfile setf ruby]])
 
 if vim.fn.has("nvim-0.8") == 1 then
-  vim.opt.cmdheight = 0
+	vim.opt.cmdheight = 0
 end
 
 -- File types
 vim.filetype.add({
-  extension = {
-    mdx = "mdx",
-  },
+	extension = {
+		mdx = "mdx",
+	},
 })
 
 vim.g.lazyvim_prettier_needs_config = true

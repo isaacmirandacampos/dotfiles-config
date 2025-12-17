@@ -1,22 +1,11 @@
 {
   "extras": [
-    "lazyvim.plugins.extras.ai.copilot",
-    "lazyvim.plugins.extras.ai.copilot-chat",
-    "lazyvim.plugins.extras.coding.luasnip",
-    "lazyvim.plugins.extras.editor.fzf",
-    "lazyvim.plugins.extras.lang.git",
-    "lazyvim.plugins.extras.lang.go",
-    "lazyvim.plugins.extras.lang.markdown",
-    "lazyvim.plugins.extras.lang.prisma",
-    "lazyvim.plugins.extras.lang.python",
-    "lazyvim.plugins.extras.lang.sql",
-    "lazyvim.plugins.extras.lang.terraform",
-    "lazyvim.plugins.extras.test.core"
+
   ],
   "install_version": 8,
   "news": {
-    "NEWS.md": "10960",
-    "doc/news.txt": "24841"
+    "NEWS.md": "11866",
+    "doc/news.txt": "25446"
   },
   "version": 8
 }

@@ -2,6 +2,7 @@ return {
   {
     "smoka7/hop.nvim",
     version = "*",
+    enabled = true,
     opts = {
       keys = "etovxqpdygfblzhckisuran",
       jump_on_sole_occurrence = false, -- Não pular automaticamente quando há apenas uma ocorrência
@@ -66,7 +67,7 @@ return {
   },
   {
     "folke/flash.nvim",
-    enabled = false,
+    enabled = true,
     evenu = "VeryLazy",
     -- Sobrescrever as configurações padrão do LazyVim
     opus = {

@@ -108,6 +108,9 @@ set -x _ZO_DATA_DIR ~/.local/share/zoxide/
 # Enable fzf key bindings
 source (brew --prefix)/opt/fzf/shell/key-bindings.fish
 
+## Cargo | Rust
+source "$HOME/.cargo/env.fish"
+
 # tmux-sessionizer
 set PATH "$PATH":"$HOME/.config/tmux/"
 

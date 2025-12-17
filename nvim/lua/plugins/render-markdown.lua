@@ -1,152 +1,215 @@
 -- Filename: ~/.config/neovim/neobean/lua/plugins/render-markdown.lua
--- ~/.config/neovim/neobean/lua/plugins/render-markdown.lua
-
--- https://github.com/MeanderingProgrammer/markdown.nvim
---
--- When I hover over markdown headings, this plugins goes away, so I need to
--- edit the default highlights
--- I tried adding this as an autocommand, in the options.lua
--- file, also in the markdownl.lua file, but the highlights kept being overriden
--- so the only way I was able to make it work was loading it
--- after the config.lazy in the init.lua file lamw25wmal
-
--- Require the colors.lua module and access the colors directly without
--- additional file reads
-local colors = require("config.colors")
+-- Versão avançada com cores do solarized-osaka
 
 return {
-  "MeanderingProgrammer/render-markdown.nvim",
-  -- Moved highlight creation out of opts as suggested by plugin maintainer
-  -- There was no issue, but it was creating unnecessary noise when ran
-  -- :checkhealth render-markdown
-  -- https://github.com/MeanderingProgrammer/render-markdown.nvim/issues/138#issuecomment-2295422741
-  init = function()
-    local colorInline_bg = colors["linkarzu_color02"]
-    local color_fg = colors["linkarzu_color26"]
-    -- local color_sign = "#ebfafa"
-    if vim.g.md_heading_bg == "transparent" then
-      -- Define color variables
-      local color1_bg = colors["linkarzu_color04"]
-      local color2_bg = colors["linkarzu_color02"]
-      local color3_bg = colors["linkarzu_color03"]
-      local color4_bg = colors["linkarzu_color01"]
-      local color5_bg = colors["linkarzu_color05"]
-      local color6_bg = colors["linkarzu_color08"]
-      local color_fg1 = colors["linkarzu_color18"]
-      local color_fg2 = colors["linkarzu_color19"]
-      local color_fg3 = colors["linkarzu_color20"]
-      local color_fg4 = colors["linkarzu_color21"]
-      local color_fg5 = colors["linkarzu_color22"]
-      local color_fg6 = colors["linkarzu_color23"]
+	"MeanderingProgrammer/render-markdown.nvim",
+	dependencies = { "craftzdog/solarized-osaka.nvim" },
 
-      -- Heading colors (when not hovered over), extends through the entire line
-      vim.cmd(string.format([[highlight Headline1Bg guibg=%s guifg=%s ]], color_fg1, color1_bg))
-      vim.cmd(string.format([[highlight Headline2Bg guibg=%s guifg=%s ]], color_fg2, color2_bg))
-      vim.cmd(string.format([[highlight Headline3Bg guibg=%s guifg=%s ]], color_fg3, color3_bg))
-      vim.cmd(string.format([[highlight Headline4Bg guibg=%s guifg=%s ]], color_fg4, color4_bg))
-      vim.cmd(string.format([[highlight Headline5Bg guibg=%s guifg=%s ]], color_fg5, color5_bg))
-      vim.cmd(string.format([[highlight Headline6Bg guibg=%s guifg=%s ]], color_fg6, color6_bg))
-      -- Define inline code highlight for markdown
-      vim.cmd(string.format([[highlight RenderMarkdownCodeInline guifg=%s guibg=%s]], colorInline_bg, color_fg))
-      -- vim.cmd(string.format([[highlight RenderMarkdownCodeInline guifg=%s]], colorInline_bg))
+	init = function()
+		-- Carrega as cores do solarized-osaka
+		local c = require("solarized-osaka.colors").setup({ transform = true })
 
-      -- Highlight for the heading and sign icons (symbol on the left)
-      -- I have the sign disabled for now, so this makes no effect
-      vim.cmd(string.format([[highlight Headline1Fg cterm=bold gui=bold guifg=%s]], color1_bg))
-      vim.cmd(string.format([[highlight Headline2Fg cterm=bold gui=bold guifg=%s]], color2_bg))
-      vim.cmd(string.format([[highlight Headline3Fg cterm=bold gui=bold guifg=%s]], color3_bg))
-      vim.cmd(string.format([[highlight Headline4Fg cterm=bold gui=bold guifg=%s]], color4_bg))
-      vim.cmd(string.format([[highlight Headline5Fg cterm=bold gui=bold guifg=%s]], color5_bg))
-      vim.cmd(string.format([[highlight Headline6Fg cterm=bold gui=bold guifg=%s]], color6_bg))
-    else
-      local color1_bg = colors["linkarzu_color18"]
-      local color2_bg = colors["linkarzu_color19"]
-      local color3_bg = colors["linkarzu_color20"]
-      local color4_bg = colors["linkarzu_color21"]
-      local color5_bg = colors["linkarzu_color22"]
-      local color6_bg = colors["linkarzu_color23"]
-      vim.cmd(string.format([[highlight Headline1Bg guifg=%s guibg=%s]], color_fg, color1_bg))
-      vim.cmd(string.format([[highlight Headline2Bg guifg=%s guibg=%s]], color_fg, color2_bg))
-      vim.cmd(string.format([[highlight Headline3Bg guifg=%s guibg=%s]], color_fg, color3_bg))
-      vim.cmd(string.format([[highlight Headline4Bg guifg=%s guibg=%s]], color_fg, color4_bg))
-      vim.cmd(string.format([[highlight Headline5Bg guifg=%s guibg=%s]], color_fg, color5_bg))
-      vim.cmd(string.format([[highlight Headline6Bg guifg=%s guibg=%s]], color_fg, color6_bg))
-    end
-  end,
+		-- Função auxiliar para criar tons mais claros/escuros
+		local function blend(color1, color2, alpha)
+			local r1 = tonumber(color1:sub(2, 3), 16)
+			local g1 = tonumber(color1:sub(4, 5), 16)
+			local b1 = tonumber(color1:sub(6, 7), 16)
+			local r2 = tonumber(color2:sub(2, 3), 16)
+			local g2 = tonumber(color2:sub(4, 5), 16)
+			local b2 = tonumber(color2:sub(6, 7), 16)
 
-  opts = {
-    bullet = {
-      -- Turn on / off list bullet rendering
-      enabled = true,
-      right_pad = 1,
-      left_pad = 1,
-    },
-    checkbox = {
-      -- Turn on / off checkbox state rendering
-      enabled = true,
-      -- Determines how icons fill the available space:
-      --  inline:  underlying text is concealed resulting in a left aligned icon
-      --  overlay: result is left padded with spaces to hide any additional text
-      position = "inline",
-      unchecked = {
-        -- Replaces '[ ]' of 'task_list_marker_unchecked'
-        icon = "   󰄱 ",
-        -- Highlight for the unchecked icon
-        highlight = "RenderMarkdownUnchecked",
-        -- Highlight for item associated with unchecked checkbox
-        scope_highlight = nil,
-      },
-      checked = {
-        -- Replaces '[x]' of 'task_list_marker_checked'
-        icon = "   󰱒 ",
-        -- Highlight for the checked icon
-        highlight = "RenderMarkdownChecked",
-        -- Highlight for item associated with checked checkbox
-        scope_highlight = nil,
-      },
-    },
+			local r = math.floor(r1 * alpha + r2 * (1 - alpha))
+			local g = math.floor(g1 * alpha + g2 * (1 - alpha))
+			local b = math.floor(b1 * alpha + b2 * (1 - alpha))
 
-    html = {
-      -- Turn on / off all HTML rendering
-      enabled = true,
-      comment = {
-        -- Turn on / off HTML comment concealing
-        conceal = false,
-      },
-    },
+			return string.format("#%02x%02x%02x", r, g, b)
+		end
 
-    -- Add custom icons lamw26wmal
-    link = {
-      image = vim.g.neovim_mode == "skitty" and "" or "󰥶 ",
-      custom = {
-        youtu = { pattern = "youtu%.be", icon = "󰗃 " },
-      },
-    },
+		-- Define um esquema de cores mais suave se preferir
+		local heading_colors = {
+			h1 = { fg = c.orange, bg = blend(c.orange, c.base03, 0.1) },
+			h2 = { fg = c.blue, bg = blend(c.blue, c.base03, 0.1) },
+			h3 = { fg = c.green, bg = blend(c.green, c.base03, 0.1) },
+			h4 = { fg = c.magenta, bg = blend(c.magenta, c.base03, 0.1) },
+			h5 = { fg = c.yellow, bg = blend(c.yellow, c.base03, 0.1) },
+			h6 = { fg = c.cyan, bg = blend(c.cyan, c.base03, 0.1) },
+		}
 
-    heading = {
-      sign = false,
-      icons = { "󰎤 ", "󰎧 ", "󰎪 ", "󰎭 ", "󰎱 ", "󰎳 " },
-      backgrounds = {
-        "Headline1Bg",
-        "Headline2Bg",
-        "Headline3Bg",
-        "Headline4Bg",
-        "Headline5Bg",
-        "Headline6Bg",
-      },
-      foregrounds = {
-        "Headline1Fg",
-        "Headline2Fg",
-        "Headline3Fg",
-        "Headline4Fg",
-        "Headline5Fg",
-        "Headline6Fg",
-      },
-    },
-    code = {
-      -- if I'm not using yabai, I cannot make the color of the codeblocks
-      -- transparent, so just disabling all rendering 😢
-      style = "none",
-    },
-  },
+		-- if vim.g.md_heading_bg == "transparent" then
+		-- Background transparente
+		vim.cmd(string.format([[highlight Headline1Bg guibg=NONE guifg=%s gui=bold]], heading_colors.h1.fg))
+		vim.cmd(string.format([[highlight Headline2Bg guibg=NONE guifg=%s gui=bold]], heading_colors.h2.fg))
+		vim.cmd(string.format([[highlight Headline3Bg guibg=NONE guifg=%s gui=bold]], heading_colors.h3.fg))
+		vim.cmd(string.format([[highlight Headline4Bg guibg=NONE guifg=%s gui=bold]], heading_colors.h4.fg))
+		vim.cmd(string.format([[highlight Headline5Bg guibg=NONE guifg=%s gui=bold]], heading_colors.h5.fg))
+		vim.cmd(string.format([[highlight Headline6Bg guibg=NONE guifg=%s gui=bold]], heading_colors.h6.fg))
+		-- else
+		--   -- Com background sutil
+		-- vim.cmd(string.format([[highlight Headline1Bg guifg=%s guibg=%s gui=bold]], c.base3, heading_colors.h1.bg))
+		-- vim.cmd(string.format([[highlight Headline2Bg guifg=%s guibg=%s gui=bold]], c.base3, heading_colors.h2.bg))
+		-- vim.cmd(string.format([[highlight Headline3Bg guifg=%s guibg=%s gui=bold]], c.base3, heading_colors.h3.bg))
+		-- vim.cmd(string.format([[highlight Headline4Bg guifg=%s guibg=%s gui=bold]], c.base3, heading_colors.h4.bg))
+		-- vim.cmd(string.format([[highlight Headline5Bg guifg=%s guibg=%s gui=bold]], c.base3, heading_colors.h5.bg))
+		-- vim.cmd(string.format([[highlight Headline6Bg guifg=%s guibg=%s gui=bold]], c.base3, heading_colors.h6.bg))
+		-- end
+
+		-- Ícones dos headings
+		vim.cmd(string.format([[highlight Headline1Fg cterm=bold gui=bold guifg=%s]], heading_colors.h1.fg))
+		vim.cmd(string.format([[highlight Headline2Fg cterm=bold gui=bold guifg=%s]], heading_colors.h2.fg))
+		vim.cmd(string.format([[highlight Headline3Fg cterm=bold gui=bold guifg=%s]], heading_colors.h3.fg))
+		vim.cmd(string.format([[highlight Headline4Fg cterm=bold gui=bold guifg=%s]], heading_colors.h4.fg))
+		vim.cmd(string.format([[highlight Headline5Fg cterm=bold gui=bold guifg=%s]], heading_colors.h5.fg))
+		vim.cmd(string.format([[highlight Headline6Fg cterm=bold gui=bold guifg=%s]], heading_colors.h6.fg))
+
+		-- Código inline com fundo sutil
+		vim.cmd(
+			string.format(
+				[[highlight RenderMarkdownCodeInline guifg=%s guibg=%s]],
+				c.green500,
+				blend(c.base02, c.base03, 0.5)
+			)
+		)
+
+		-- Checkboxes
+		vim.cmd(string.format([[highlight RenderMarkdownUnchecked guifg=%s]], c.base1))
+		vim.cmd(string.format([[highlight RenderMarkdownChecked guifg=%s gui=bold]], c.green))
+
+		-- Links
+		vim.cmd(string.format([[highlight RenderMarkdownLink guifg=%s gui=underline]], c.blue1))
+
+		-- Listas
+		vim.cmd(string.format([[highlight RenderMarkdownBullet guifg=%s]], c.orange))
+
+		-- Tabelas
+		vim.cmd(string.format([[highlight RenderMarkdownTableHead guifg=%s gui=bold]], c.purple))
+		vim.cmd(string.format([[highlight RenderMarkdownTableRow guifg=%s]], c.base0))
+
+		-- Citações (quotes)
+		vim.cmd(string.format([[highlight RenderMarkdownQuote guifg=%s]], c.base1))
+	end,
+
+	opts = {
+		-- Configuração anti-conceal para melhor visibilidade
+		anti_conceal = {
+			enabled = true,
+		},
+
+		bullet = {
+			enabled = true,
+			icons = { "●", "○", "◆", "◇" },
+			right_pad = 1,
+			left_pad = 0,
+		},
+
+		checkbox = {
+			enabled = true,
+			position = "inline",
+			unchecked = {
+				icon = "󰄱 ",
+				highlight = "RenderMarkdownUnchecked",
+			},
+			checked = {
+				icon = "󰱒 ",
+				highlight = "RenderMarkdownChecked",
+			},
+			custom = {
+				todo = { raw = "[-]", rendered = "󰥔 ", highlight = "RenderMarkdownTodo" },
+				important = { raw = "[!]", rendered = "󰀨 ", highlight = "RenderMarkdownImportant" },
+			},
+		},
+
+		html = {
+			enabled = true,
+			comment = {
+				conceal = false,
+			},
+		},
+
+		link = {
+			enabled = true,
+			image = "󰥶 ",
+			email = "󰊫 ",
+			hyperlink = "󰌹 ",
+			custom = {
+				github = { pattern = "github%.com", icon = "󰊤 " },
+				gitlab = { pattern = "gitlab%.com", icon = "󰮠 " },
+				youtube = { pattern = "youtu%.be", icon = "󰗃 " },
+				twitter = { pattern = "twitter%.com", icon = "󰕄 " },
+			},
+		},
+
+		heading = {
+			enabled = true,
+			sign = false,
+			position = "inline",
+			icons = { "󰎤 ", "󰎧 ", "󰎪 ", "󰎭 ", "󰎱 ", "󰎳 " },
+			signs = { "󰫎 " },
+			width = "full",
+			left_pad = 0,
+			right_pad = 0,
+			min_width = 0,
+			border = false,
+			border_prefix = false,
+			above = "▄",
+			below = "▀",
+			backgrounds = {
+				"Headline1Bg",
+				"Headline2Bg",
+				"Headline3Bg",
+				"Headline4Bg",
+				"Headline5Bg",
+				"Headline6Bg",
+			},
+			foregrounds = {
+				"Headline1Fg",
+				"Headline2Fg",
+				"Headline3Fg",
+				"Headline4Fg",
+				"Headline5Fg",
+				"Headline6Fg",
+			},
+		},
+
+		code = {
+			enabled = true,
+			sign = true,
+			style = "full",
+			position = "left",
+			language_pad = 0,
+			disable_background = { "diff" },
+			width = "full",
+			left_pad = 0,
+			right_pad = 0,
+			min_width = 0,
+			border = "thin",
+			above = "▄",
+			below = "▀",
+			highlight = "RenderMarkdownCode",
+			highlight_inline = "RenderMarkdownCodeInline",
+		},
+
+		dash = {
+			enabled = true,
+			icon = "─",
+			width = "full",
+			highlight = "RenderMarkdownDash",
+		},
+
+		quote = {
+			enabled = true,
+			icon = "▌",
+			repeat_linebreak = false,
+			highlight = "RenderMarkdownQuote",
+		},
+
+		-- Configuração de desempenho
+		render_modes = { "n", "v", "i", "c" },
+
+		-- Desabilita rendering em arquivos grandes
+		max_file_size = 2.0,
+
+		-- Debounce para melhor performance
+		debounce = 100,
+	},
 }
+
