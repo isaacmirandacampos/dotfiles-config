@@ -49,6 +49,9 @@ return {
 					},
 				},
 			},
+			marksman = {
+				enabled = false, -- Desabilita marksman para evitar erros com wikilinks do Obsidian
+			},
 			cssls = {},
 			tailwindcss = {
 				root_dir = function(...)

@@ -8,3 +8,5 @@ end
 vim.print = _G.dd
 
 require("config.lazy")
+require("config.diagram-keymaps")
+require("config.markdown-config")
