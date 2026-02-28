@@ -34,6 +34,34 @@ vim.api.nvim_create_autocmd("FileType", {
 			},
 		}, vim.api.nvim_get_current_buf())
 
+		-- Keybinding para inserir link markdown (Ctrl+k)
+		vim.keymap.set("n", "<leader>ml", function()
+			local current_file = vim.api.nvim_buf_get_name(0)
+			local current_dir = vim.fn.fnamemodify(current_file, ":h")
+
+			-- Busca todos os arquivos .md
+			local cmd = string.format("find %s -name '*.md' 2>/dev/null", vim.fn.shellescape(current_dir))
+			local result = vim.fn.system(cmd)
+
+			local files = {}
+			for file in result:gmatch("[^\n]+") do
+				if file ~= current_file then -- Exclui o arquivo atual
+					local basename = vim.fn.fnamemodify(file, ":t:r")
+					table.insert(files, basename)
+				end
+			end
+
+			-- Mostra seletor
+			vim.ui.select(files, {
+				prompt = "Selecione arquivo para link:",
+			}, function(choice)
+				if choice then
+					-- Insere wikilink
+					vim.api.nvim_put({ "[[" .. choice .. "]]" }, "c", true, true)
+				end
+			end)
+		end, { buffer = true, desc = "Inserir link markdown" })
+
 		-- Keybinding para seguir links markdown/wikilinks (gd)
 		vim.keymap.set("n", "gd", function()
 			local line = vim.api.nvim_get_current_line()
@@ -55,7 +83,11 @@ vim.api.nvim_create_autocmd("FileType", {
 
 				for _, pattern in ipairs(patterns) do
 					-- Busca no diretório atual e subdiretórios
-					local cmd = string.format("find %s -name %s 2>/dev/null", vim.fn.shellescape(current_dir), vim.fn.shellescape(pattern))
+					local cmd = string.format(
+						"find %s -name %s 2>/dev/null",
+						vim.fn.shellescape(current_dir),
+						vim.fn.shellescape(pattern)
+					)
 					local result = vim.fn.system(cmd)
 
 					if result ~= "" then
@@ -65,7 +97,10 @@ vim.api.nvim_create_autocmd("FileType", {
 					end
 				end
 
-				vim.notify("Arquivo não encontrado: " .. wikilink .. "\nProcurado em: " .. current_dir, vim.log.levels.WARN)
+				vim.notify(
+					"Arquivo não encontrado: " .. wikilink .. "\nProcurado em: " .. current_dir,
+					vim.log.levels.WARN
+				)
 				return
 			end
 
