@@ -11,6 +11,23 @@ return {
 					workingDirectories = { mode = "auto" },
 					format = true,
 				},
+				root_dir = function(...)
+					return require("lspconfig.util").root_pattern(
+						".eslintrc",
+						".eslintrc.js",
+						".eslintrc.cjs",
+						".eslintrc.yaml",
+						".eslintrc.yml",
+						".eslintrc.json",
+						"eslint.config.js",
+						"eslint.config.mjs",
+						"eslint.config.cjs",
+						"eslint.config.ts",
+						"eslint.config.mts",
+						"eslint.config.cts",
+						"package.json"
+					)(...)
+				end,
 			},
 			harper_ls = {
 				enabled = true,
