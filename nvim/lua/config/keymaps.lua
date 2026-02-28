@@ -86,9 +86,9 @@ wk.add({
 	{ "<leader>op", ":ObsidianPasteImg<CR>", desc = "Paste image" },
 	{ "<leader>or", ":ObsidianRename<CR>", desc = "Rename" },
 	{ "<leader>ob", ":ObsidianBacklinks<CR>", desc = "Backlinks" },
-	{ "<leader>of", ":ObsidianSearch<CR>", desc = "Search" },
+	{ "<leader>off", ":ObsidianSearch<CR>", desc = "Search" },
 	{ "<leader>oe", ":ObsidianExtractNote<CR>", desc = "Extract note", mode = "v" },
-	{ "<leader>ol", ":ObsidianLinks<CR>", desc = "Links" },
+	{ "<leader>ofl", ":ObsidianLinks<CR>", desc = "Links" },
 })
 
 wk.add({

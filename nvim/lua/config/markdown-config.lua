@@ -34,30 +34,167 @@ vim.api.nvim_create_autocmd("FileType", {
 			},
 		}, vim.api.nvim_get_current_buf())
 
-		-- Keybinding para inserir link markdown (Ctrl+k)
-		vim.keymap.set("n", "<leader>ml", function()
-			local current_file = vim.api.nvim_buf_get_name(0)
-			local current_dir = vim.fn.fnamemodify(current_file, ":h")
+		-- Função para calcular path relativo
+		local function relative_path(from_file, to_file)
+			-- Remove o nome do arquivo de from_file para obter o diretório
+			local from_dir = vim.fn.fnamemodify(from_file, ":h")
 
-			-- Busca todos os arquivos .md
-			local cmd = string.format("find %s -name '*.md' 2>/dev/null", vim.fn.shellescape(current_dir))
-			local result = vim.fn.system(cmd)
+			-- Divide os paths em partes
+			local from_parts = vim.split(from_dir, "/", { trimempty = true })
+			local to_parts = vim.split(to_file, "/", { trimempty = true })
 
-			local files = {}
-			for file in result:gmatch("[^\n]+") do
-				if file ~= current_file then -- Exclui o arquivo atual
-					local basename = vim.fn.fnamemodify(file, ":t:r")
-					table.insert(files, basename)
+			-- Remove partes comuns do início
+			local common = 0
+			for i = 1, math.min(#from_parts, #to_parts) do
+				if from_parts[i] == to_parts[i] then
+					common = i
+				else
+					break
 				end
 			end
 
+			-- Calcula quantos "../" são necessários
+			local ups = #from_parts - common
+			local relative = {}
+
+			for _ = 1, ups do
+				table.insert(relative, "..")
+			end
+
+			-- Adiciona as partes restantes do to_file
+			for i = common + 1, #to_parts do
+				table.insert(relative, to_parts[i])
+			end
+
+			-- Se está no mesmo diretório, usa ./
+			if #relative == 1 then
+				return "./" .. relative[1]
+			end
+
+			return table.concat(relative, "/")
+		end
+
+		-- Keybinding para inserir link Obsidian (wikilink)
+		vim.keymap.set("n", "<leader>ol", function()
+			local current_file = vim.api.nvim_buf_get_name(0)
+			local git_root = vim.fn.systemlist("git rev-parse --show-toplevel 2>/dev/null")[1]
+
+			local cmd
+			local file_list = {}
+
+			if git_root and git_root ~= "" then
+				-- Usa git ls-files para respeitar .gitignore
+				cmd = string.format("cd %s && git ls-files '*.md' 2>/dev/null", vim.fn.shellescape(git_root))
+				local result = vim.fn.system(cmd)
+
+				for file in result:gmatch("[^\n]+") do
+					local full_path = git_root .. "/" .. file
+					if full_path ~= current_file then
+						local basename = vim.fn.fnamemodify(file, ":t:r")
+						table.insert(file_list, { display = file, basename = basename })
+					end
+				end
+			else
+				-- Fallback para find se não for git repo
+				local current_dir = vim.fn.fnamemodify(current_file, ":h")
+				cmd = string.format("find %s -name '*.md' 2>/dev/null", vim.fn.shellescape(current_dir))
+				local result = vim.fn.system(cmd)
+
+				for file in result:gmatch("[^\n]+") do
+					if file ~= current_file then
+						local basename = vim.fn.fnamemodify(file, ":t:r")
+						table.insert(file_list, { display = file, basename = basename })
+					end
+				end
+			end
+
+			-- Extrai apenas os displays para o seletor
+			local displays = {}
+			for _, item in ipairs(file_list) do
+				table.insert(displays, item.display)
+			end
+
 			-- Mostra seletor
-			vim.ui.select(files, {
+			vim.ui.select(displays, {
+				prompt = "Selecione arquivo para link Obsidian:",
+			}, function(choice)
+				if choice then
+					-- Encontra o basename correspondente
+					local basename
+					for _, item in ipairs(file_list) do
+						if item.display == choice then
+							basename = item.basename
+							break
+						end
+					end
+
+					-- Insere wikilink do Obsidian: [[basename]]
+					local wikilink = "[[" .. basename .. "]]"
+					vim.api.nvim_put({ wikilink }, "c", true, true)
+				end
+			end)
+		end, { buffer = true, desc = "Inserir link Obsidian (wikilink)" })
+
+		-- Keybinding para inserir link markdown (Ctrl+k)
+		vim.keymap.set("n", "<leader>ml", function()
+			local current_file = vim.api.nvim_buf_get_name(0)
+			local git_root = vim.fn.systemlist("git rev-parse --show-toplevel 2>/dev/null")[1]
+
+			local cmd
+			local file_list = {}
+
+			if git_root and git_root ~= "" then
+				-- Usa git ls-files para respeitar .gitignore
+				cmd = string.format("cd %s && git ls-files '*.md' 2>/dev/null", vim.fn.shellescape(git_root))
+				local result = vim.fn.system(cmd)
+
+				for file in result:gmatch("[^\n]+") do
+					local full_path = git_root .. "/" .. file
+					if full_path ~= current_file then
+						-- Calcula path relativo ao arquivo atual
+						local rel_path = relative_path(current_file, full_path)
+						table.insert(file_list, { display = file, path = rel_path })
+					end
+				end
+			else
+				-- Fallback para find se não for git repo
+				local current_dir = vim.fn.fnamemodify(current_file, ":h")
+				cmd = string.format("find %s -name '*.md' 2>/dev/null", vim.fn.shellescape(current_dir))
+				local result = vim.fn.system(cmd)
+
+				for file in result:gmatch("[^\n]+") do
+					if file ~= current_file then
+						local rel_path = relative_path(current_file, file)
+						table.insert(file_list, { display = file, path = rel_path })
+					end
+				end
+			end
+
+			-- Extrai apenas os displays para o seletor
+			local displays = {}
+			for _, item in ipairs(file_list) do
+				table.insert(displays, item.display)
+			end
+
+			-- Mostra seletor
+			vim.ui.select(displays, {
 				prompt = "Selecione arquivo para link:",
 			}, function(choice)
 				if choice then
-					-- Insere wikilink
-					vim.api.nvim_put({ "[[" .. choice .. "]]" }, "c", true, true)
+					-- Encontra o path relativo correspondente
+					local relative_path_result
+					for _, item in ipairs(file_list) do
+						if item.display == choice then
+							relative_path_result = item.path
+							break
+						end
+					end
+
+					-- Extrai nome do arquivo sem extensão para usar como texto do link
+					local basename = vim.fn.fnamemodify(choice, ":t:r")
+					-- Insere link markdown padrão: [nome](path.md)
+					local markdown_link = "[" .. basename .. "](" .. relative_path_result .. ")"
+					vim.api.nvim_put({ markdown_link }, "c", true, true)
 				end
 			end)
 		end, { buffer = true, desc = "Inserir link markdown" })
