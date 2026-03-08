@@ -318,8 +318,8 @@ return {
 					-- only used if `opts.inline` is disabled
 					float = true,
 					-- Tamanho do floating window (aumentado para diagramas complexos)
-					max_width = 120,
-					max_height = 80,
+					max_width = 180,
+					max_height = 140,
 					-- Apparently, all the images that you preview in neovim are converted
 					-- to .png and they're cached, original image remains the same, but
 					-- the preview you see is a png converted version of that image
