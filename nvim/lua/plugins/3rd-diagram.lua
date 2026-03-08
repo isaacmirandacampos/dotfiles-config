@@ -1,6 +1,7 @@
 return {
 	{
 		"3rd/diagram.nvim",
+		enabled = false,
 		dependencies = {
 			"3rd/image.nvim",
 		},
@@ -11,8 +12,8 @@ return {
 			},
 			renderer_options = {
 				mermaid = {
-					background = "transparent",
-					theme = "dark",
+					background = "white",
+					theme = "default",
 					scale = 3,
 				},
 			},
