@@ -27,12 +27,12 @@ vim.api.nvim_create_autocmd("FileType", {
 				format = function(diagnostic)
 					-- Remove erros de "Ambiguous link" do marksman
 					if diagnostic.message and diagnostic.message:match("[Aa]mbiguous") then
-						return nil
+						return ""
 					end
 					return diagnostic.message
 				end,
 			},
-		}, vim.api.nvim_get_current_buf())
+		})
 
 		-- Função para calcular path relativo
 		local function relative_path(from_file, to_file)
