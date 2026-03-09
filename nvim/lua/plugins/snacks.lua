@@ -159,6 +159,14 @@ return {
 			},
 		},
 		opts = {
+			-- Smooth scrolling
+			scroll = {
+				enabled = true,
+				animate = {
+					duration = { step = 15, total = 250 },
+					easing = "linear",
+				},
+			},
 			-- Documentation for the picker
 			-- https://github.com/folke/snacks.nvim/blob/main/docs/picker.md
 			picker = {
@@ -312,11 +320,11 @@ return {
 					-- render the image inline in the buffer
 					-- if your env doesn't support unicode placeholders, this will be disabled
 					-- takes precedence over `opts.float` on supported terminals
-					inline = false,
+					inline = true,
 					-- only_render_image_at_cursor = vim.g.neovim_mode == "skitty" and false or true,
 					-- render the image in a floating window
 					-- only used if `opts.inline` is disabled
-					float = true,
+					float = false,
 					-- Tamanho do floating window (aumentado para diagramas complexos)
 					max_width = 180,
 					max_height = 140,
@@ -332,7 +340,7 @@ return {
 				},
 				convert = {
 					mermaid = function()
-						return { "-i", "{src}", "-o", "{file}", "-b", "white", "-t", "default", "-s", "5" }
+						return { "-i", "{src}", "-o", "{file}", "-b", "white", "-t", "default", "-s", "3" }
 					end,
 				},
 			},
