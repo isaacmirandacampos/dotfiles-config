@@ -75,5 +75,8 @@ return {
         return string.format("![%s](%s)", path.name, path)
       end,
     },
+
+    -- Disable UI to avoid conflict with render-markdown.nvim
+    ui = { enable = false },
   },
 }

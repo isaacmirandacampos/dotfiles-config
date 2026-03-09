@@ -103,7 +103,6 @@ return {
 
 		checkbox = {
 			enabled = true,
-			position = "inline",
 			unchecked = {
 				icon = "󰄱 ",
 				highlight = "RenderMarkdownUnchecked",
@@ -170,6 +169,16 @@ return {
 			},
 		},
 
+		latex = {
+			enabled = true,
+			render_modes = false,
+			converter = { "utftex" }, -- Tries utftex first, then fallbacks to latex2text
+			highlight = "RenderMarkdownMath",
+			position = "center", -- Can be 'center', 'above', or 'below'
+			top_pad = 0,
+			bottom_pad = 0,
+		},
+
 		code = {
 			enabled = true,
 			sign = true,
@@ -212,4 +221,3 @@ return {
 		debounce = 100,
 	},
 }
-
