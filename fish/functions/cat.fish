@@ -1,3 +1,3 @@
 function cat
-    bat --theme="Solarized (dark)" --style=plain --paging=never $argv
+    bat --theme="TwoDark" --style=plain --paging=never $argv
 end

@@ -2,7 +2,7 @@
 [mgr]
 # ratio = [0, 4, 5]
 ratio = [2, 3, 5]
-sort_by = "alphabetical"
+sort_by = "mtime"
 sort_dir_first = true
 linemode = "size_and_btime"
 show_hidden = false
@@ -19,10 +19,10 @@ max_height = 2000
 [opener]
 edit = [
     { run = 'nvim "$@"', desc = "neovim", block = true, for = "unix" },
-    { run = 'cursor "$@"', desc = "Cursor", block = false, for = "unix" },
+    { run = 'code "$@"', desc = "VSCode", block = false, for = "unix" },
 ]
 open = [
-    { run = 'cursor "$@"', desc = "Cursor", for = "linux" },
+    { run = 'nvim "$@"', desc = "Neovim", for = "linux" },
     { run = 'open "$@"', desc = "Open", for = "macos" },
 ]
 
