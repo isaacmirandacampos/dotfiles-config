@@ -1,11 +1,11 @@
 return -- filename
 {
   "b0o/incline.nvim",
-  dependencies = { "craftzdog/solarized-osaka.nvim" },
+  dependencies = { require("config.theme").plugin },
   event = "BufReadPre",
   priority = 1200,
   config = function()
-    local colors = require("solarized-osaka.colors").setup()
+    local colors = require("config.theme").colors()
     require("incline").setup({
       highlight = {
         groups = {
