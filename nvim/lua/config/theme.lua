@@ -89,10 +89,10 @@ local themes = {
 
 	["onedark"] = {
 		plugin = "olimorris/onedarkpro.nvim",
-		colorscheme = "onedark",
+		colorscheme = "vaporwave",
 		opts = { options = { transparency = true } },
 		colors = function()
-			return require("onedarkpro.helpers").get_preloaded_colors("onedark")
+			return require("onedarkpro.helpers").get_preloaded_colors("vaporwave")
 		end,
 	},
 }
