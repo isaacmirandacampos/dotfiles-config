@@ -9,8 +9,8 @@ return -- filename
     require("incline").setup({
       highlight = {
         groups = {
-          InclineNormal = { guibg = colors.magenta500, guifg = colors.base04 },
-          InclineNormalNC = { guifg = colors.violet500, guibg = colors.base03 },
+          InclineNormal = { guibg = colors.magenta500 or colors.purple, guifg = colors.base04 or colors.bg },
+          InclineNormalNC = { guifg = colors.violet500 or colors.comment, guibg = colors.base03 or colors.black },
         },
       },
       window = { margin = { vertical = 0, horizontal = 1 } },

@@ -15,6 +15,7 @@ return {
 				"gitignore",
 				"go",
 				"graphql",
+				"hurl",
 				"http",
 				"java",
 				"php",
@@ -57,23 +58,5 @@ return {
 				},
 			},
 		},
-		config = function()
-			-- Safe require: checks if the module exists before crashing
-			local status_ok, configs = pcall(require, "nvim-treesitter.configs")
-			if not status_ok then
-				return
-			end
-
-			configs.setup({
-				-- Start with just these basics to ensure it works
-				ensure_installed = { "lua", "vim", "vimdoc", "python", "markdown" },
-
-				-- Install parsers synchronously (only for now, to prevent errors)
-				sync_install = true,
-
-				highlight = { enable = true },
-				indent = { enable = true },
-			})
-		end,
 	},
 }
