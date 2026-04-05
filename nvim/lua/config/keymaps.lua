@@ -15,6 +15,9 @@ keymap.set("n", "<Leader>D", '"_D')
 keymap.set("v", "<Leader>d", '"_d')
 keymap.set("v", "<Leader>D", '"_D')
 
+-- Database UI
+keymap.set("n", "<Leader>db", "<cmd>DBUIToggle<CR>", { desc = "Toggle DBUI" })
+
 -- Open LSP Message in a floating window
 keymap.set("n", "<Leader>lm", ":LspInfo<CR>", opts)
 

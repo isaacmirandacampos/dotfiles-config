@@ -15,7 +15,6 @@ return {
 				"gitignore",
 				"go",
 				"graphql",
-				"hurl",
 				"http",
 				"java",
 				"php",
