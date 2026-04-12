@@ -25,6 +25,14 @@ open = [
     { run = 'nvim "$@"', desc = "Neovim", for = "linux" },
     { run = 'open "$@"', desc = "Open", for = "macos" },
 ]
+pdf = [
+    { run = 'open -a "Brave Browser" "$@"', desc = "Brave", for = "macos" },
+]
+
+[open]
+prepend_rules = [
+    { mime = "application/pdf", use = "pdf" },
+]
 
 [plugin]
 prepend_previewers = [

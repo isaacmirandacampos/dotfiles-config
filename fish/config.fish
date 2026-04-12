@@ -133,4 +133,7 @@ set --export PATH /Users/isaacdmcampos/.local/bin $PATH
 # starship end
 
 # opencode
-fish_add_path /Users/isaacdmcampos/.opencode/bin
+fish_add_path "/Users/isaacdmcampos/.opencode/bin"
+
+# bun
+fish_add_path "/Users/isaacdmcampos/.bun/bin"

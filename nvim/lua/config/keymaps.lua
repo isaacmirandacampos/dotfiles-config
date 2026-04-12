@@ -10,13 +10,6 @@ keymap.set("n", "<Leader>c", '"_c')
 keymap.set("n", "<Leader>C", '"_C')
 keymap.set("v", "<Leader>c", '"_c')
 keymap.set("v", "<Leader>C", '"_C')
-keymap.set("n", "<Leader>d", '"_d')
-keymap.set("n", "<Leader>D", '"_D')
-keymap.set("v", "<Leader>d", '"_d')
-keymap.set("v", "<Leader>D", '"_D')
-
--- Database UI
-keymap.set("n", "<Leader>db", "<cmd>DBUIToggle<CR>", { desc = "Toggle DBUI" })
 
 -- Open LSP Message in a floating window
 keymap.set("n", "<Leader>lm", ":LspInfo<CR>", opts)
@@ -80,6 +73,14 @@ end)
 vim.api.nvim_create_user_command("ToggleAutoformat", function()
 	require("craftzdog.lsp").toggleAutoformat()
 end, {})
+
+wk.add({
+	{ "<leader>d", group = "Database" },
+	{ "<leader>dd", "<cmd>DBUIToggle<CR>", desc = "Toggle DBUI" },
+	{ "<leader>da", "<cmd>DBUIAddConnection<CR>", desc = "Add connection" },
+	{ "<leader>df", "<cmd>DBUIFindBuffer<CR>", desc = "Find buffer" },
+	{ "<leader>dr", "<Plug>(DBUI_ExecuteQuery)", desc = "Run query", mode = { "n", "v" } },
+})
 
 wk.add({
 	{ "<leader>o", group = "Obsidian" },

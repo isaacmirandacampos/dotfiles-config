@@ -27,11 +27,18 @@ return {
 	},
 	---@type YaziConfig | {}
 	opts = {
-		-- if you want to open yazi instead of netrw, see below for more info
 		open_for_directories = true,
 		keymaps = {
 			show_help = "<f1>",
 		},
+		open_file_function = function(chosen_file, config, state)
+			local ext = chosen_file:match("%.([^%.]+)$")
+			if ext and ext:lower() == "pdf" then
+				vim.fn.jobstart({ "open", "-a", "Brave Browser", chosen_file })
+			else
+				require("yazi.openers").open_file(chosen_file)
+			end
+		end,
 	},
 	-- 👇 if you use `open_for_directories=true`, this is recommended
 	init = function()
