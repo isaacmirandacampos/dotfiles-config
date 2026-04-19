@@ -253,6 +253,10 @@ if.app-id = 'com.todesktop.230313mzl4w4u92'
 run = ['layout tiling', 'move-node-to-workspace 3']
 
 [[on-window-detected]]
+if.app-id = 'com.google.antigravity'
+run = ['layout tiling', 'move-node-to-workspace 3']
+
+[[on-window-detected]]
 if.app-id = 'com.anthropic.claudefordesktop'
 run = ['layout tiling', 'move-node-to-workspace 4']
 
@@ -262,4 +266,8 @@ run = ['layout tiling', 'move-node-to-workspace 5']
 
 [[on-window-detected]]
 if.app-id = 'com.postmanlabs.mac'
+run = ['layout tiling', 'move-node-to-workspace 6']
+
+[[on-window-detected]]
+if.app-id = 'com.usebruno.app'
 run = ['layout tiling', 'move-node-to-workspace 6']
