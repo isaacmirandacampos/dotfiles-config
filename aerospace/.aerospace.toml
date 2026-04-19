@@ -238,6 +238,11 @@ run = ['layout tiling', 'move-node-to-workspace 1']
 
 [[on-window-detected]]
 if.app-id = 'net.kovidgoyal.kitty'
+if.window-title-regex-substring = 'FragmentedNotes'
+run = ['layout tiling']
+
+[[on-window-detected]]
+if.app-id = 'net.kovidgoyal.kitty'
 run = ['layout tiling', 'move-node-to-workspace 2']
 
 [[on-window-detected]]
