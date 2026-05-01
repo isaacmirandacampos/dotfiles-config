@@ -243,7 +243,7 @@ run = ['layout tiling']
 
 [[on-window-detected]]
 if.app-id = 'net.kovidgoyal.kitty'
-if.window-title-regex-substring = 'Harlequin'
+if.window-title-regex-substring = 'NeoDB'
 run = ['layout tiling', 'move-node-to-workspace 5']
 
 [[on-window-detected]]

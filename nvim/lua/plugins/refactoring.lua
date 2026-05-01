@@ -5,36 +5,60 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
+      "lewis6991/async.nvim",
     },
     keys = {
       { "<leader>r", "", desc = "+refactor", mode = { "n", "v" } },
       {
         "<leader>rs",
-        pick,
+        function() require("refactoring").select_refactor() end,
         mode = "v",
         desc = "Refactor",
       },
       {
         "<leader>ri",
         function()
-          require("refactoring").refactor("Inline Variable")
+          return require("refactoring").inline_var()
         end,
         mode = { "n", "v" },
+        expr = true,
         desc = "Inline Variable",
       },
       {
-        "<leader>rb",
+        "<leader>rI",
         function()
-          require("refactoring").refactor("Extract Block")
+          return require("refactoring").inline_func()
         end,
-        desc = "Extract Block",
+        mode = { "n", "v" },
+        expr = true,
+        desc = "Inline Function",
       },
       {
         "<leader>rf",
         function()
-          require("refactoring").refactor("Extract Block To File")
+          return require("refactoring").extract_func()
         end,
-        desc = "Extract Block To File",
+        mode = "v",
+        expr = true,
+        desc = "Extract Function",
+      },
+      {
+        "<leader>rF",
+        function()
+          return require("refactoring").extract_func_to_file()
+        end,
+        mode = "v",
+        expr = true,
+        desc = "Extract Function To File",
+      },
+      {
+        "<leader>rx",
+        function()
+          return require("refactoring").extract_var()
+        end,
+        mode = "v",
+        expr = true,
+        desc = "Extract Variable",
       },
       {
         "<leader>rP",
@@ -51,43 +75,19 @@ return {
         desc = "Debug Print Variable",
       },
       {
-        "<leader>rc",
-        function()
-          require("refactoring").debug.cleanup({})
-        end,
-        desc = "Debug Cleanup",
-      },
-      {
-        "<leader>rf",
-        function()
-          require("refactoring").refactor("Extract Function")
-        end,
-        mode = "v",
-        desc = "Extract Function",
-      },
-      {
-        "<leader>rF",
-        function()
-          require("refactoring").refactor("Extract Function To File")
-        end,
-        mode = "v",
-        desc = "Extract Function To File",
-      },
-      {
-        "<leader>rx",
-        function()
-          require("refactoring").refactor("Extract Variable")
-        end,
-        mode = "v",
-        desc = "Extract Variable",
-      },
-      {
         "<leader>rp",
         function()
           require("refactoring").debug.print_var()
         end,
         mode = "v",
         desc = "Debug Print Variable",
+      },
+      {
+        "<leader>rc",
+        function()
+          require("refactoring").debug.cleanup({})
+        end,
+        desc = "Debug Cleanup",
       },
     },
     opts = {
@@ -116,11 +116,6 @@ return {
     },
     config = function(_, opts)
       require("refactoring").setup(opts)
-      if LazyVim.has("telescope.nvim") then
-        LazyVim.on_load("telescope.nvim", function()
-          require("telescope").load_extension("refactoring")
-        end)
-      end
     end,
   },
 }

@@ -137,3 +137,6 @@ fish_add_path "/Users/isaacdmcampos/.opencode/bin"
 
 # bun
 fish_add_path "/Users/isaacdmcampos/.bun/bin"
+
+# libpq
+fish_add_path /opt/homebrew/opt/libpq/bin
