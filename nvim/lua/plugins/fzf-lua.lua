@@ -187,6 +187,7 @@ return {
 					.. " --exclude venv --exclude __pycache__ --exclude dist --exclude build"
 					.. " --exclude .obsidian"
 					.. " && fd --type f --hidden --no-ignore-vcs --glob '.env*'"
+					.. " && fd --type f --hidden --no-ignore-vcs --glob '.specs'"
 					.. " --exclude .git",
 			},
 			grep = {
