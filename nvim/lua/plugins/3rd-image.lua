@@ -1,6 +1,7 @@
 return {
 	"3rd/image.nvim",
 	build = false,
+	ft = { "markdown", "mdx" },
 	opts = {
 		backend = "kitty",
 		processor = "magick_cli",
