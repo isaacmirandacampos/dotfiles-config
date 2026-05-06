@@ -1,5 +1,6 @@
 return {
 	"MeanderingProgrammer/render-markdown.nvim",
+	ft = { "markdown", "mdx" },
 	opts = {
 		-- Configuração anti-conceal para melhor visibilidade
 		anti_conceal = {

@@ -9,8 +9,9 @@ vim.api.nvim_create_autocmd("InsertLeave", {
 })
 
 vim.api.nvim_create_autocmd("LspAttach", {
+	once = true,
 	callback = function()
-		vim.api.nvim_set_hl(0, "LspInlayHint", { fg = "#000000", bg = "#b28500" }) -- Change #7aa2f7 to your desired color
+		vim.api.nvim_set_hl(0, "LspInlayHint", { fg = "#000000", bg = "#b28500" })
 	end,
 })
 

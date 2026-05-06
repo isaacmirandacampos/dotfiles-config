@@ -1,5 +1,6 @@
 return {
 	"hkupty/iron.nvim",
+	cmd = { "IronRepl", "IronRestart", "IronFocus", "IronHide" },
 	config = function(plugins, opts)
 		local iron = require("iron.core")
 
