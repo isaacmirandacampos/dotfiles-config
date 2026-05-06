@@ -6,13 +6,8 @@ return {
 			{ "<leader>E", false },
 		},
 		opts = {
-			-- Smooth scrolling
 			scroll = {
-				enabled = true,
-				animate = {
-					duration = { step = 15, total = 250 },
-					easing = "linear",
-				},
+				enabled = false,
 			},
 			picker = {
 				enabled = false,

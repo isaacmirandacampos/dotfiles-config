@@ -64,13 +64,23 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
-vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+vim.api.nvim_create_autocmd("CursorHold", {
 	group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
 	callback = function()
-		vim.diagnostic.open_float(nil, {
-			focus = false,
-			border = "rounded",
-		})
+		local mode = vim.api.nvim_get_mode().mode
+		if mode ~= "n" then
+			return
+		end
+		-- Only show if there are diagnostics on the current line
+		local line = vim.api.nvim_win_get_cursor(0)[1] - 1
+		local diagnostics = vim.diagnostic.get(0, { lnum = line })
+		if #diagnostics > 0 then
+			vim.diagnostic.open_float(nil, {
+				focus = false,
+				border = "rounded",
+				scope = "cursor",
+			})
+		end
 	end,
 })
 

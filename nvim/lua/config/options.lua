@@ -56,6 +56,15 @@ vim.filetype.add({
 	},
 })
 
+-- Performance: increase CursorHold delay (default 4000, lower = more CPU)
+vim.opt.updatetime = 300
+-- Performance: limit syntax highlighting to first 500 columns
+vim.opt.synmaxcol = 500
+-- Performance: limit regex engine complexity
+vim.opt.regexpengine = 1
+-- Performance: disable folding by default (heavy on large files)
+vim.opt.foldenable = false
+
 vim.g.lazyvim_prettier_needs_config = true
 vim.g.lazyvim_picker = "fzf"
 vim.g.lazyvim_cmp = "blink.cmp"

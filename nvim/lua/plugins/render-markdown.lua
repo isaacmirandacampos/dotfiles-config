@@ -124,13 +124,10 @@ return {
 			highlight = "RenderMarkdownQuote",
 		},
 
-		-- Configuração de desempenho
-		render_modes = { "n", "v", "i", "c" },
+		render_modes = { "n", "v" },
 
-		-- Desabilita rendering em arquivos grandes
 		max_file_size = 2.0,
 
-		-- Debounce para melhor performance
-		debounce = 100,
+		debounce = 200,
 	},
 }
