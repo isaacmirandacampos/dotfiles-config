@@ -1,3 +1,5 @@
+vim.env.PATH = vim.env.HOME .. "/.local/share/mise/shims:" .. vim.env.PATH
+
 vim.g.mapleader = " "
 -- vim.g.python3_host_prog = "/opt/homebrew/bin/python3"
 vim.g.python3_host_prog = "/Users/isaacdmcampos/.neovim-python/bin/python"
