@@ -28,6 +28,9 @@ brew install btop
 ## Install zoxide
 brew install zoxide
 
+## Install mise
+brew install mise
+
 ## Install kitty
 brew install kitty
 
@@ -50,6 +53,7 @@ ln -sf $HOME/dotfiles-config/aerospace/.aerospace.toml /Applications/AeroSpace.a
 ln -sf $HOME/dotfiles-config/starship.toml $HOME/.config/starship.toml
 ln -sf $HOME/dotfiles-config/dictionaries $HOME/.config/dictionaries
 ln -sf $HOME/dotfiles-config/tmux/tmux.conf $HOME/.tmux.conf
+ln -sf $HOME/dotfiles-config/mise $HOME/.config/mise
 ln -sf $HOME/dotfiles-config/yazi $HOME/.config/yazi
 ln -sf $HOME/dotfiles-config/yabai $HOME/.config/yabai
 ln -sf $HOME/dotfiles-config/aerospace/.aerospace.toml $HOME/
