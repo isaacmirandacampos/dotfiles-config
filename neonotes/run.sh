@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+export PATH="/opt/homebrew/bin:$PATH"
+
 PIDFILE="/tmp/neonotes.pid"
 NOTES_DIR="$HOME/workspaces/personal/fragmented/notes/inbox"
 TODAY="$(date +%Y-%m-%d)"

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e2030"/>
+      <stop offset="100%" stop-color="#181926"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#f5a97f"/>
+      <stop offset="100%" stop-color="#ee99a0"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="1024" height="1024" rx="220" fill="url(#bg)"/>
+  <!-- Database cylinder - top ellipse -->
+  <ellipse cx="512" cy="300" rx="220" ry="70" fill="none" stroke="url(#accent)" stroke-width="36"/>
+  <!-- Database cylinder - sides -->
+  <line x1="292" y1="300" x2="292" y2="680" stroke="url(#accent)" stroke-width="36" stroke-linecap="butt"/>
+  <line x1="732" y1="300" x2="732" y2="680" stroke="url(#accent)" stroke-width="36" stroke-linecap="butt"/>
+  <!-- Database cylinder - bottom ellipse -->
+  <ellipse cx="512" cy="680" rx="220" ry="70" fill="none" stroke="url(#accent)" stroke-width="36"/>
+  <!-- Middle ring -->
+  <ellipse cx="512" cy="490" rx="220" ry="70" fill="none" stroke="url(#accent)" stroke-width="12" opacity="0.4"/>
+  <!-- Data dots row 1 -->
+  <circle cx="430" cy="400" r="16" fill="url(#accent)" opacity="0.6"/>
+  <circle cx="490" cy="400" r="16" fill="url(#accent)" opacity="0.6"/>
+  <circle cx="550" cy="400" r="16" fill="url(#accent)" opacity="0.6"/>
+  <!-- Data dots row 2 -->
+  <circle cx="450" cy="580" r="16" fill="url(#accent)" opacity="0.4"/>
+  <circle cx="520" cy="580" r="16" fill="url(#accent)" opacity="0.4"/>
+  <!-- Lightning bolt (query) -->
+  <polygon points="560,520 530,570 555,570 535,620 590,555 560,555 580,520" fill="url(#accent)" opacity="0.7"/>
+</svg>
