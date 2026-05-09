@@ -140,3 +140,10 @@ fish_add_path "/Users/isaacdmcampos/.bun/bin"
 
 # libpq
 fish_add_path /opt/homebrew/opt/libpq/bin
+
+# nvm - auto-load default node version
+set -q NVM_DIR; or set -gx NVM_DIR ~/.nvm
+if status is-interactive; and type -q bass
+    bass source $NVM_DIR/nvm.sh --no-use
+    nvm use default --silent
+end

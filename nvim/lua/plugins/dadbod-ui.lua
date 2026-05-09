@@ -18,8 +18,8 @@ return {
     vim.api.nvim_create_autocmd("FileType", {
       pattern = { "sql", "mysql", "plsql" },
       callback = function(event)
-        vim.keymap.set("n", "<C-CR>", "<Plug>(DBUI_ExecuteQuery)", { buffer = event.buf, desc = "Execute query" })
-        vim.keymap.set("v", "<C-CR>", "<Plug>(DBUI_ExecuteQuery)", { buffer = event.buf, desc = "Execute selected query" })
+        vim.keymap.set("n", "<leader>rr", "<Plug>(DBUI_ExecuteQuery)", { buffer = event.buf, desc = "Execute query" })
+        vim.keymap.set("v", "<leader>rr", "<Plug>(DBUI_ExecuteQuery)", { buffer = event.buf, desc = "Execute selected query" })
         -- Restore arrow keys in insert mode (sqlcomplete overrides them)
         vim.keymap.set("i", "<Right>", "<Right>", { buffer = event.buf })
         vim.keymap.set("i", "<Left>", "<Left>", { buffer = event.buf })

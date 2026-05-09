@@ -79,7 +79,7 @@ wk.add({
 	{ "<leader>dd", "<cmd>DBUIToggle<CR>", desc = "Toggle DBUI" },
 	{ "<leader>da", "<cmd>DBUIAddConnection<CR>", desc = "Add connection" },
 	{ "<leader>df", "<cmd>DBUIFindBuffer<CR>", desc = "Find buffer" },
-	{ "<leader>dr", "<Plug>(DBUI_ExecuteQuery)", desc = "Run query", mode = { "n", "v" } },
+	{ "<leader>rr", "<Plug>(DBUI_ExecuteQuery)", desc = "Run query", mode = { "n", "v" } },
 })
 
 wk.add({
