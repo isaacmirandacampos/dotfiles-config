@@ -93,7 +93,7 @@ set -gx PATH bin $PATH
 set -gx PATH ~/bin $PATH
 set -gx PATH ~/.local/bin $PATH
 
-# Go
+# Go (GOPATH for compiled binaries)
 set -g GOPATH $HOME/go
 set -gx PATH $GOPATH/bin $PATH
 
@@ -108,8 +108,6 @@ set -x _ZO_DATA_DIR ~/.local/share/zoxide/
 # Enable fzf key bindings
 source (brew --prefix)/opt/fzf/shell/key-bindings.fish
 
-## Cargo | Rust
-source "$HOME/.cargo/env.fish"
 
 # tmux-sessionizer
 set PATH "$PATH":"$HOME/.config/tmux/"
@@ -117,12 +115,6 @@ set PATH "$PATH":"$HOME/.config/tmux/"
 bind \cf tmux-sessionizer
 # tmux-sessionizer end
 
-# pnpm
-set -gx PNPM_HOME /Users/isaacdmcampos/Library/pnpm
-if not string match -q -- $PNPM_HOME $PATH
-    set -gx PATH "$PNPM_HOME" $PATH
-end
-# pnpm end
 
 # write
 set --export PATH /Users/isaacdmcampos/.local/bin $PATH
@@ -135,8 +127,6 @@ set --export PATH /Users/isaacdmcampos/.local/bin $PATH
 # opencode
 fish_add_path "/Users/isaacdmcampos/.opencode/bin"
 
-# bun
-fish_add_path "/Users/isaacdmcampos/.bun/bin"
 
 # libpq
 fish_add_path /opt/homebrew/opt/libpq/bin
