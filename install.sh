@@ -31,6 +31,12 @@ brew install zoxide
 ## Install mise
 brew install mise
 
+## Install sheldon (zsh plugin manager)
+brew install sheldon
+
+## Install starship (prompt)
+brew install starship
+
 ## Install kitty
 brew install kitty
 
@@ -54,6 +60,9 @@ ln -sf $HOME/dotfiles-config/starship.toml $HOME/.config/starship.toml
 ln -sf $HOME/dotfiles-config/dictionaries $HOME/.config/dictionaries
 ln -sf $HOME/dotfiles-config/tmux/tmux.conf $HOME/.tmux.conf
 ln -sf $HOME/dotfiles-config/mise $HOME/.config/mise
+ln -sf $HOME/dotfiles-config/zsh/.zshrc $HOME/.zshrc
+mkdir -p $HOME/.config/sheldon
+ln -sf $HOME/dotfiles-config/zsh/plugins.toml $HOME/.config/sheldon/plugins.toml
 ln -sf $HOME/dotfiles-config/yazi $HOME/.config/yazi
 ln -sf $HOME/dotfiles-config/yabai $HOME/.config/yabai
 ln -sf $HOME/dotfiles-config/aerospace/.aerospace.toml $HOME/
