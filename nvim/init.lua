@@ -11,5 +11,11 @@ end
 vim.print = _G.dd
 
 require("config.lazy")
-require("config.diagram-keymaps")
-require("config.markdown-config")
+
+local mode = vim.g.neovim_mode
+if mode == "full" then
+	require("config.diagram-keymaps")
+end
+if mode == "full" or mode == "neonotes" then
+	require("config.markdown-config")
+end
