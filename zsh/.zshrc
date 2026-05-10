@@ -22,6 +22,13 @@ bindkey '^[[1;5D' backward-word          # Ctrl+Left
 bindkey '^[f'     forward-word           # Alt+Right
 bindkey '^[b'     backward-word          # Alt+Left
 
+# ── History search (Up/Down match prefix) ──────────────
+autoload -Uz history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey '^[[A' history-beginning-search-backward-end  # Up
+bindkey '^[[B' history-beginning-search-forward-end    # Down
+
 # ── Edit command line in nvim (Ctrl+E) ─────────────────
 autoload -Uz edit-command-line
 zle -N edit-command-line
