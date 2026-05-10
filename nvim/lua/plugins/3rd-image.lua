@@ -1,5 +1,6 @@
 return {
 	"3rd/image.nvim",
+	enabled = require("util.mode").enabled({ "neonotes" }),
 	build = false,
 	ft = { "markdown", "mdx" },
 	opts = {

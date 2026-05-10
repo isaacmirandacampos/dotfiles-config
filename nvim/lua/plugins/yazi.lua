@@ -1,5 +1,6 @@
 return {
 	"mikavilpas/yazi.nvim",
+	enabled = require("util.mode").enabled({ "neonotes" }),
 	version = "*", -- use the latest stable version
 	event = "VeryLazy",
 	dependencies = {

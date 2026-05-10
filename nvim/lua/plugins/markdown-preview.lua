@@ -1,5 +1,6 @@
 return {
 	"iamcco/markdown-preview.nvim",
+	enabled = require("util.mode").enabled({ "neonotes" }),
 	cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
 	ft = "markdown",
 	build = function()

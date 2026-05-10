@@ -9,6 +9,6 @@ TODAY="$(date +%Y-%m-%d)"
 FILE="$NOTES_DIR/$TODAY.md"
 
 echo $PPID > "$PIDFILE"
-/opt/homebrew/bin/nvim "+cd $NOTES_DIR" "$FILE"
+NEOVIM_MODE=neonotes /opt/homebrew/bin/nvim "+cd $NOTES_DIR" "$FILE"
 rm -f "$PIDFILE"
 kill $PPID 2>/dev/null

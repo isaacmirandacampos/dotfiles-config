@@ -14,6 +14,7 @@
 
 return {
   "bullets-vim/bullets.vim",
+  enabled = require("util.mode").enabled({ "neonotes" }),
   ft = { "markdown", "text", "gitcommit", "scratch" },
   -- NOTE: enable the plugin only for specific filetypes, if you don't do this,
   -- and you use the new snacks picker by folke, you won't be able to select a

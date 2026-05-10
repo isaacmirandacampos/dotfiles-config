@@ -1,6 +1,8 @@
+local full_only = require("util.mode").enabled({})
 return {
 	{
 		"coder/claudecode.nvim",
+		enabled = full_only,
 		dependencies = { "folke/snacks.nvim" },
 		config = true,
 		opts = {},

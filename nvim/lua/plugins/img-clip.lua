@@ -5,6 +5,7 @@
 
 return {
   "HakonHarnes/img-clip.nvim",
+  enabled = require("util.mode").enabled({ "neonotes" }),
   event = "VeryLazy",
   opts = {
     -- add options here

@@ -1,6 +1,8 @@
+local full_only = require("util.mode").enabled({})
 return {
 	{
 		"jellydn/hurl.nvim",
+		enabled = full_only,
 		dependencies = {
 			"MunifTanjim/nui.nvim",
 			"nvim-lua/plenary.nvim",

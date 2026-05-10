@@ -1,6 +1,8 @@
+local full_only = require("util.mode").enabled({})
 return {
 	{
 		"benlubas/molten-nvim",
+		enabled = full_only,
 		version = "^1.0.0", -- use version <2.0.0 to avoid breaking changes
 		build = ":UpdateRemotePlugins",
 		dependencies = { "3rd/image.nvim" },

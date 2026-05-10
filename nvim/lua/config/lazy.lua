@@ -11,21 +11,28 @@ if not vim.uv.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({
-	spec = {
-		-- add LazyVim and import its plugins
-		{
-			"LazyVim/LazyVim",
-			import = "lazyvim.plugins",
-			opts = {
-				colorscheme = require("config.theme").colorscheme,
-				news = {
-					lazyvim = true,
-					neovim = true,
-				},
+local mode = vim.g.neovim_mode
+local is_full = mode == "full"
+
+local spec = {
+	{
+		"LazyVim/LazyVim",
+		import = "lazyvim.plugins",
+		opts = {
+			colorscheme = require("config.theme").colorscheme,
+			news = {
+				lazyvim = true,
+				neovim = true,
 			},
 		},
-		-- import any extras modules here
+	},
+}
+
+if is_full or mode == "neodb" then
+	table.insert(spec, { import = "lazyvim.plugins.extras.lang.sql" })
+end
+if is_full then
+	vim.list_extend(spec, {
 		{ import = "lazyvim.plugins.extras.linting.eslint" },
 		{ import = "lazyvim.plugins.extras.formatting.prettier" },
 		{ import = "lazyvim.plugins.extras.lang.typescript" },
@@ -36,13 +43,17 @@ require("lazy").setup({
 		-- { import = "lazyvim.plugins.extras.dap.core" },
 		-- { import = "lazyvim.plugins.extras.vscode" },
 		{ import = "lazyvim.plugins.extras.util.mini-hipatterns" },
-		{ import = "lazyvim.plugins.extras.lang.sql" },
 		-- { import = "lazyvim.plugins.extras.test.core" },
 		-- { import = "lazyvim.plugins.extras.coding.yanky" },
 		-- { import = "lazyvim.plugins.extras.editor.mini-files" },
 		-- { import = "lazyvim.plugins.extras.util.project" },
-		{ import = "plugins" },
-	},
+	})
+end
+
+table.insert(spec, { import = "plugins" })
+
+require("lazy").setup({
+	spec = spec,
 	defaults = {
 		-- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
 		-- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.

@@ -1,5 +1,6 @@
 return {
   "epwalsh/obsidian.nvim",
+  enabled = require("util.mode").enabled({ "neonotes" }),
   version = "*", -- recommended, use latest release instead of latest commit
   lazy = true,
   ft = "markdown",

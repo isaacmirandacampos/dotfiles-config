@@ -1,6 +1,8 @@
+local full_only = require("util.mode").enabled({})
 return {
   {
     "ThePrimeagen/refactoring.nvim",
+    enabled = full_only,
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       "nvim-lua/plenary.nvim",

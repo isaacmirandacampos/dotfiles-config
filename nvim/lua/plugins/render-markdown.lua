@@ -1,5 +1,6 @@
 return {
 	"MeanderingProgrammer/render-markdown.nvim",
+	enabled = require("util.mode").enabled({ "neonotes" }),
 	ft = { "markdown", "mdx" },
 	opts = {
 		-- Configuração anti-conceal para melhor visibilidade
