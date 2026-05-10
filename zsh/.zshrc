@@ -19,6 +19,13 @@ bindkey '^[[F'    end-of-line            # End
 bindkey '^[[3~'   delete-char            # Delete
 bindkey '^[[1;5C' forward-word           # Ctrl+Right
 bindkey '^[[1;5D' backward-word          # Ctrl+Left
+bindkey '^[f'     forward-word           # Alt+Right
+bindkey '^[b'     backward-word          # Alt+Left
+
+# ── Edit command line in nvim (Ctrl+E) ─────────────────
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^g' edit-command-line
 
 # ── Completions ─────────────────────────────────────────
 autoload -Uz compinit
@@ -58,6 +65,7 @@ alias lg='lazygit'
 alias ld='lazydocker'
 alias t='tmux-sessionizer'
 alias s='yazi'
+alias ck='$HOME/dotfiles-config/kitty/commands.sh'
 alias venv='python3 -m venv .venv && source .venv/bin/activate'
 
 # ── FZF ─────────────────────────────────────────────────
