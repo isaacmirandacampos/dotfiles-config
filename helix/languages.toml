@@ -54,6 +54,9 @@ args = ["--stdio"]
 command = "prisma-language-server"
 args = ["--stdio"]
 
+[language-server.sqls]
+command = "sqls"
+
 [language-server.biome]
 command = "biome"
 args = ["lsp-proxy"]
@@ -169,3 +172,7 @@ language-servers = ["docker-langserver"]
 name = "prisma"
 language-servers = ["prisma-language-server"]
 auto-format = true
+
+[[language]]
+name = "sql"
+language-servers = ["sqls"]

@@ -1,0 +1,54 @@
+# Font
+font-family = JetBrainsMono Nerd Font
+font-size = 16
+bold-is-bright = false
+
+# Cursor
+cursor-style = block
+cursor-style-blink = false
+
+# Window
+window-decoration = false
+window-padding-x = 2
+window-padding-y = 2
+background-opacity = 0.65
+background-blur-radius = 15
+
+# Shell
+shell-integration = none
+command = zsh
+
+
+# Clipboard
+copy-on-select = false
+clipboard-trim-trailing-spaces = true
+
+# Theme
+theme = onedark
+
+# macOS
+macos-titlebar-style = hidden
+
+# Keybinds — window navigation (Cmd+Shift+Arrow)
+keybind = cmd+shift+up=goto_split:top
+keybind = cmd+shift+down=goto_split:bottom
+keybind = cmd+shift+left=goto_split:left
+keybind = cmd+shift+right=goto_split:right
+
+# Keybinds — Ctrl+F sends \x14 (like kitty config)
+keybind = ctrl+f=text:\x14
+
+# Keybinds — Shift+Enter
+keybind = shift+enter=text:\x1b[13;2u
+
+# Keybinds — Ctrl+Shift+Left/Right: beginning/end of line
+keybind = ctrl+shift+left=text:\x01
+keybind = ctrl+shift+right=text:\x05
+
+# Keybinds — Alt+Left/Right: jump between words
+keybind = alt+left=text:\x1bb
+keybind = alt+right=text:\x1bf
+
+# Keybinds — Alt+Shift+Left/Right: beginning/end of line
+keybind = alt+shift+left=text:\x01
+keybind = alt+shift+right=text:\x05

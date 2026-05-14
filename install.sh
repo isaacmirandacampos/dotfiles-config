@@ -40,6 +40,9 @@ brew install starship
 ## Install kitty
 brew install kitty
 
+## Install ghostty
+brew install --cask ghostty
+
 ## Install helix
 brew install helix
 
@@ -54,6 +57,9 @@ ln -sf $HOME/dotfiles-config/fish $HOME/.config/fish
 ln -sf $HOME/dotfiles-config/tmux $HOME/.config/tmux
 ln -sf $HOME/dotfiles-config/btop $HOME/.config/btop
 ln -sf $HOME/dotfiles-config/kitty $HOME/.config/kitty
+mkdir -p $HOME/.config/ghostty
+ln -sf $HOME/dotfiles-config/ghostty/config $HOME/.config/ghostty/config
+ln -sf $HOME/dotfiles-config/ghostty/themes $HOME/.config/ghostty/themes
 ln -sf $HOME/dotfiles-config/nvim $HOME/.config/nvim
 ln -sf $HOME/dotfiles-config/aerospace $HOME/.config/aerospace
 ln -sf $HOME/dotfiles-config/git $HOME/.config/git
