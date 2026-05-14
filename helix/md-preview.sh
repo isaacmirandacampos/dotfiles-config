@@ -20,7 +20,7 @@ pandoc "$INPUT" \
     min-width: 200px; max-width: 1400px; width: 100%;
     padding: 2rem 4rem;
   }
-  .mermaid-wrapper { position: relative; }
+  .mermaid-wrapper { position: relative; background: #fff; border-radius: 8px; padding: 1rem; }
   .mermaid-expand {
     position: absolute; top: 4px; right: 4px;
     background: #24292e; color: #fff; border: none; border-radius: 4px;
