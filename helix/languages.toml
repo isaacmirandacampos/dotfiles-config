@@ -1,24 +1,73 @@
+# ── Language Servers ──────────────────────────────────────────
+
+[language-server.typescript-language-server]
+command = "typescript-language-server"
+args = ["--stdio"]
+
+[language-server.pyright]
+command = "pyright-langserver"
+args = ["--stdio"]
+
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+
+[language-server.gopls]
+command = "gopls"
+
+[language-server.lua-language-server]
+command = "lua-language-server"
+
+[language-server.marksman]
+command = "marksman"
+args = ["server"]
+
+[language-server.yaml-language-server]
+command = "yaml-language-server"
+args = ["--stdio"]
+
+[language-server.taplo]
+command = "taplo"
+args = ["lsp", "stdio"]
+
+[language-server.buf]
+command = "buf"
+args = ["beta", "lsp"]
+
+[language-server.vscode-html-language-server]
+command = "vscode-html-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-css-language-server]
+command = "vscode-css-language-server"
+args = ["--stdio"]
+
+[language-server.vscode-json-language-server]
+command = "vscode-json-language-server"
+args = ["--stdio"]
+
+[language-server.docker-langserver]
+command = "docker-langserver"
+args = ["--stdio"]
+
+[language-server.prisma-language-server]
+command = "prisma-language-server"
+args = ["--stdio"]
+
 [language-server.biome]
 command = "biome"
 args = ["lsp-proxy"]
-
-[language-server.rust-analyzer.config]
-cargo.allFeatures = true
-check.command = "clippy"
 
 [language-server.tailwindcss-ls]
 command = "tailwindcss-language-server"
 args = ["--stdio"]
 
-[languagec-server.tombi]
-command = "tombi"
-args = ["lsp"]
+# ── Languages ────────────────────────────────────────────────
 
 [[language]]
 name = "typescript"
 language-servers = [
   { name = "typescript-language-server", except-features = ["format"] },
-  "efm-lsp-prettier"
 ]
 formatter = { command = "prettier", args = ["--parser", "typescript"] }
 auto-format = true
@@ -27,32 +76,32 @@ auto-format = true
 name = "tsx"
 language-servers = [
   { name = "typescript-language-server", except-features = ["format"] },
-  "efm-lsp-prettier"
 ]
 formatter = { command = "prettier", args = ["--parser", "typescript"] }
 auto-format = true
 
-# JavaScript
 [[language]]
 name = "javascript"
 language-servers = [
   { name = "typescript-language-server", except-features = ["format"] },
-  "efm-lsp-prettier"
 ]
 formatter = { command = "prettier", args = ["--parser", "babel"] }
 auto-format = true
 
-# Python
 [[language]]
-name = "python"
+name = "jsx"
 language-servers = [
-  { name = "pyright", except-features = ["format"] },
-  "efm-lsp-black"
+  { name = "typescript-language-server", except-features = ["format"] },
 ]
-formatter = { command = "black", args = ["-"] }
+formatter = { command = "prettier", args = ["--parser", "babel"] }
 auto-format = true
 
-# Go
+[[language]]
+name = "python"
+language-servers = ["pyright", "ruff"]
+formatter = { command = "ruff", args = ["format", "-"] }
+auto-format = true
+
 [[language]]
 name = "go"
 language-servers = ["gopls"]
@@ -60,11 +109,49 @@ formatter = { command = "gofmt" }
 auto-format = true
 
 [[language]]
+name = "markdown"
+language-servers = ["marksman"]
+formatter = { command = "prettier", args = ["--parser", "markdown"] }
+auto-format = true
+
+[[language]]
+name = "yaml"
+language-servers = ["yaml-language-server"]
+formatter = { command = "prettier", args = ["--parser", "yaml"] }
+auto-format = true
+
+[[language]]
+name = "toml"
+language-servers = ["taplo"]
+formatter = { command = "taplo", args = ["fmt", "-"] }
+auto-format = true
+
+[[language]]
+name = "protobuf"
+language-servers = ["buf"]
+
+[[language]]
+name = "lua"
+language-servers = ["lua-language-server"]
+auto-format = true
+
+[[language]]
+name = "html"
+language-servers = ["vscode-html-language-server", "tailwindcss-ls"]
+formatter = { command = "prettier", args = ["--parser", "html"] }
+auto-format = true
+
+[[language]]
+name = "css"
+language-servers = ["vscode-css-language-server", "tailwindcss-ls"]
+formatter = { command = "prettier", args = ["--parser", "css"] }
+auto-format = true
+
+[[language]]
 name = "json"
 language-servers = [
   { name = "vscode-json-language-server", except-features = ["format"] },
   "biome",
-  "tailwindcss-ls"
 ]
 formatter = { command = "biome", args = ["format", "--stdin-file-path=_.json"] }
 auto-format = true
@@ -75,5 +162,10 @@ formatter = { command = "biome", args = ["format", "--stdin-file-path=_.jsonc"] 
 auto-format = true
 
 [[language]]
-name = "toml"
-language-servers = []
+name = "dockerfile"
+language-servers = ["docker-langserver"]
+
+[[language]]
+name = "prisma"
+language-servers = ["prisma-language-server"]
+auto-format = true

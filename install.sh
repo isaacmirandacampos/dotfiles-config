@@ -40,6 +40,9 @@ brew install starship
 ## Install kitty
 brew install kitty
 
+## Install helix
+brew install helix
+
 ## Install yazi
 brew install yazi ffmpeg sevenzip jq poppler fd ripgrep fzf zoxide resvg imagemagick font-symbols-only-nerd-font ouch rich-cli
 
@@ -63,6 +66,11 @@ ln -sf $HOME/dotfiles-config/mise $HOME/.config/mise
 ln -sf $HOME/dotfiles-config/zsh/.zshrc $HOME/.zshrc
 mkdir -p $HOME/.config/sheldon
 ln -sf $HOME/dotfiles-config/zsh/plugins.toml $HOME/.config/sheldon/plugins.toml
+mkdir -p $HOME/.config/helix
+ln -sf $HOME/dotfiles-config/helix/config.toml $HOME/.config/helix/config.toml
+ln -sf $HOME/dotfiles-config/helix/languages.toml $HOME/.config/helix/languages.toml
+ln -sf $HOME/dotfiles-config/helix/themes $HOME/.config/helix/themes
+ln -sf $HOME/dotfiles-config/helix/md-preview.sh $HOME/.config/helix/md-preview.sh
 ln -sf $HOME/dotfiles-config/yazi $HOME/.config/yazi
 ln -sf $HOME/dotfiles-config/yabai $HOME/.config/yabai
 ln -sf $HOME/dotfiles-config/aerospace/.aerospace.toml $HOME/
