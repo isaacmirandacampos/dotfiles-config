@@ -1,3 +1,56 @@
+-- Exclusões centralizadas
+local excluded_dirs = {
+	".git",
+	"node_modules",
+	"dist",
+	"build",
+	".next",
+	"coverage",
+	"venv",
+	".venv",
+	"__pycache__",
+	".cache",
+	".obsidian",
+}
+
+local excluded_files = {
+	"*.pyc",
+	"*.lock",
+	"package-lock.json",
+}
+
+-- Gera flags --glob '!pattern/*' para rg
+local function rg_exclude_globs()
+	local parts = {}
+	for _, dir in ipairs(excluded_dirs) do
+		table.insert(parts, " --glob '!" .. dir .. "/*'")
+	end
+	for _, file in ipairs(excluded_files) do
+		table.insert(parts, " --glob '!" .. file .. "'")
+	end
+	return table.concat(parts)
+end
+
+-- Gera flags --exclude para fd
+local function fd_excludes()
+	local parts = {}
+	for _, dir in ipairs(excluded_dirs) do
+		table.insert(parts, " --exclude " .. dir)
+	end
+	for _, file in ipairs(excluded_files) do
+		table.insert(parts, " --exclude " .. file)
+	end
+	return table.concat(parts)
+end
+
+local rg_base = "--column --line-number --no-heading --color=always --smart-case --hidden --no-ignore"
+local rg_base_no_smart = "--column --line-number --no-heading --color=always --no-ignore"
+local fd_base = "--type f --hidden --follow --no-ignore"
+
+local rg_opts = rg_base .. rg_exclude_globs()
+local rg_opts_no_smart = rg_base_no_smart .. rg_exclude_globs()
+local fd_opts = fd_base .. fd_excludes()
+
 return {
 	{
 		"ibhagwan/fzf-lua",
@@ -8,12 +61,7 @@ return {
 			{
 				"<leader>ff",
 				function()
-					require("fzf-lua").files({
-						fd_opts = "--type f --hidden --follow --no-ignore-vcs"
-							.. " --exclude .git --exclude node_modules --exclude .venv"
-							.. " --exclude venv --exclude __pycache__ --exclude dist --exclude build"
-							.. " --exclude .obsidian",
-					})
+					require("fzf-lua").files({ fd_opts = fd_opts })
 				end,
 				desc = "Find Files (com .env e arquivos ocultos)",
 			},
@@ -21,7 +69,7 @@ return {
 				"<leader>fF",
 				function()
 					require("fzf-lua").files({
-						fd_opts = "--type f --hidden --follow --no-ignore" .. " --exclude .git",
+						fd_opts = "--type f --hidden --follow --no-ignore --exclude .git",
 					})
 				end,
 				desc = "Find ALL Files (incluindo ignorados)",
@@ -47,8 +95,7 @@ return {
 				"<leader>sg",
 				function()
 					require("fzf-lua").live_grep({
-						rg_opts = "--column --line-number --no-heading --color=always --smart-case"
-							.. " --hidden --glob '!.git/*' --glob '!dictionaries/words.txt'",
+						rg_opts = rg_opts .. " --glob '!dictionaries/words.txt'",
 					})
 				end,
 				desc = "Grep",
@@ -56,10 +103,7 @@ return {
 			{
 				";r",
 				function()
-					require("fzf-lua").live_grep({
-						rg_opts = "--column --line-number --no-heading --color=always --smart-case --hidden"
-							.. " --glob '!.git/*'",
-					})
+					require("fzf-lua").live_grep({ rg_opts = rg_opts })
 				end,
 				desc = "Live Grep",
 			},
@@ -70,7 +114,7 @@ return {
 					require("fzf-lua").grep({
 						search = "^\\s*- \\[ \\]",
 						no_esc = true,
-						rg_opts = "--column --line-number --no-heading --color=always --no-ignore",
+						rg_opts = rg_opts_no_smart,
 					})
 				end,
 				desc = "Search incomplete tasks",
@@ -81,7 +125,7 @@ return {
 					require("fzf-lua").grep({
 						search = "^\\s*- \\[x\\] `done:",
 						no_esc = true,
-						rg_opts = "--column --line-number --no-heading --color=always --no-ignore",
+						rg_opts = rg_opts_no_smart,
 					})
 				end,
 				desc = "Search completed tasks",
@@ -170,31 +214,17 @@ return {
 			winopts = {
 				height = 0.9,
 				width = 0.9,
-
 				row = 0.5,
 				col = 0.5,
 				border = "rounded",
 				preview = { vertical = "right:50%", layout = "horizontal" },
 			},
 			files = {
-				fd_opts = "--type f --hidden --follow"
-					.. " --exclude .git --exclude node_modules --exclude .venv"
-					.. " --exclude venv --exclude __pycache__ --exclude dist --exclude build"
-					.. " --exclude .obsidian",
-				-- Combina fd (respeitando .gitignore) + arquivos .env* ignorados pelo git
-				cmd = "fd --type f --hidden --follow"
-					.. " --exclude .git --exclude node_modules --exclude .venv"
-					.. " --exclude venv --exclude __pycache__ --exclude dist --exclude build"
-					.. " --exclude .obsidian"
-					.. " && fd --type f --hidden --no-ignore-vcs --glob '.env*'"
-					.. " && fd --type f --hidden --no-ignore-vcs --glob '.specs'"
-					.. " --exclude .git",
+				fd_opts = fd_opts,
 			},
 			grep = {
 				rg_glob = true,
-				rg_opts = "--column --line-number --no-heading --color=always --smart-case --hidden"
-					.. " --glob '!.git/*' --glob '!node_modules/*' --glob '!.venv/*'"
-					.. " --glob '!__pycache__/*' --glob '!*.lock' --glob '!.obisidian' --glob '!package-lock.json'",
+				rg_opts = rg_opts,
 			},
 			keymap = {
 				builtin = {

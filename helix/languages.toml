@@ -1,3 +1,19 @@
+[language-server.biome]
+command = "biome"
+args = ["lsp-proxy"]
+
+[language-server.rust-analyzer.config]
+cargo.allFeatures = true
+check.command = "clippy"
+
+[language-server.tailwindcss-ls]
+command = "tailwindcss-language-server"
+args = ["--stdio"]
+
+[languagec-server.tombi]
+command = "tombi"
+args = ["lsp"]
+
 [[language]]
 name = "typescript"
 language-servers = [
@@ -42,3 +58,22 @@ name = "go"
 language-servers = ["gopls"]
 formatter = { command = "gofmt" }
 auto-format = true
+
+[[language]]
+name = "json"
+language-servers = [
+  { name = "vscode-json-language-server", except-features = ["format"] },
+  "biome",
+  "tailwindcss-ls"
+]
+formatter = { command = "biome", args = ["format", "--stdin-file-path=_.json"] }
+auto-format = true
+
+[[language]]
+name = "jsonc"
+formatter = { command = "biome", args = ["format", "--stdin-file-path=_.jsonc"] }
+auto-format = true
+
+[[language]]
+name = "toml"
+language-servers = []

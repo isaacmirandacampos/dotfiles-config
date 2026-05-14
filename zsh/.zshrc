@@ -64,6 +64,9 @@ export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 # opencode
 export PATH="$HOME/.opencode/bin:$PATH"
 
+# bun
+export PATH="$HOME/.bun/bin:$PATH"
+
 # tmux-sessionizer
 export PATH="$PATH:$HOME/.config/tmux/"
 
