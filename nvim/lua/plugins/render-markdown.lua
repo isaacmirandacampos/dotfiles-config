@@ -7,7 +7,7 @@ return {
 			"<leader>mp",
 			function()
 				local file = vim.fn.expand("%:p")
-				vim.fn.jobstart({ "bash", vim.fn.expand("~/.config/helix/md-preview.sh"), file }, { detach = true })
+				vim.fn.jobstart({ "bash", vim.fn.expand("~/dotfiles-config/scripts/md-preview.sh"), file }, { detach = true })
 			end,
 			ft = "markdown",
 			desc = "Markdown Preview (browser)",

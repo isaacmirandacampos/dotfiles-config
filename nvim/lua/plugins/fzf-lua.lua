@@ -16,6 +16,9 @@ local excluded_dirs = {
 local excluded_files = {
 	"*.pyc",
 	"*.lock",
+	"*.min.js",
+	"*.min.css",
+	"*.map",
 	"package-lock.json",
 }
 
@@ -23,7 +26,7 @@ local excluded_files = {
 local function rg_exclude_globs()
 	local parts = {}
 	for _, dir in ipairs(excluded_dirs) do
-		table.insert(parts, " --glob '!" .. dir .. "/*'")
+		table.insert(parts, " --glob '!**/" .. dir .. "/**'")
 	end
 	for _, file in ipairs(excluded_files) do
 		table.insert(parts, " --glob '!" .. file .. "'")

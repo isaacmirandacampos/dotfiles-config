@@ -76,7 +76,7 @@ mkdir -p $HOME/.config/helix
 ln -sf $HOME/dotfiles-config/helix/config.toml $HOME/.config/helix/config.toml
 ln -sf $HOME/dotfiles-config/helix/languages.toml $HOME/.config/helix/languages.toml
 ln -sf $HOME/dotfiles-config/helix/themes $HOME/.config/helix/themes
-ln -sf $HOME/dotfiles-config/helix/md-preview.sh $HOME/.config/helix/md-preview.sh
+
 ln -sf $HOME/dotfiles-config/yazi $HOME/.config/yazi
 ln -sf $HOME/dotfiles-config/yabai $HOME/.config/yabai
 ln -sf $HOME/dotfiles-config/aerospace/.aerospace.toml $HOME/

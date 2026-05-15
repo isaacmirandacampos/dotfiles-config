@@ -67,7 +67,7 @@ b.d = ":buffer-close"
 b.f = "buffer_picker"
 
 # Markdown preview no navegador com Mermaid
-m.p = ":sh ~/.config/helix/md-preview.sh '%{buffer_name}' &"
+m.p = ":sh ~/dotfiles-config/scripts/md-preview.sh '%{buffer_name}' &"
 
 # yazi integration
 e = [
