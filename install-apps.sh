@@ -5,6 +5,9 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 APPS_DIR="$HOME/Applications"
 mkdir -p "$APPS_DIR"
 
+# Remove old apps
+rm -rf "$APPS_DIR/NeoNotes.app" "$APPS_DIR/NeoDB.app"
+
 create_app() {
   local name="$1"
   local bundle_id="$2"
@@ -45,9 +48,9 @@ PLIST
   echo "✓ $name.app instalado em $app_path"
 }
 
-create_app "NeoNotes" "com.isaacdmcampos.neonotes" "$SCRIPT_DIR/neonotes"
-create_app "NeoDB" "com.isaacdmcampos.neodb" "$SCRIPT_DIR/neodb"
+create_app "Notes" "com.isaacdmcampos.notes" "$SCRIPT_DIR/neonotes"
+create_app "DB" "com.isaacdmcampos.db" "$SCRIPT_DIR/neodb"
 
 echo ""
 echo "Apps instalados em $APPS_DIR/"
-echo "Abra o Spotlight (Cmd+Space) e busque por NeoNotes ou NeoDB."
+echo "Abra o Spotlight (Cmd+Space) e busque por Notes ou DB."
