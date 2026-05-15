@@ -4,6 +4,7 @@ INPUT="$1"
 OUTPUT="/tmp/md-preview-$(basename "$INPUT" .md).html"
 
 pandoc "$INPUT" \
+  --from gfm \
   --standalone \
   --metadata title="$(basename "$INPUT")" \
   --include-in-header=<(cat <<'HTML'
@@ -41,6 +42,8 @@ pandoc "$INPUT" \
     display: flex; justify-content: center; align-items: center;
   }
   .mermaid-modal-content svg { max-width: 100%; max-height: 100%; }
+  .markdown-body a { color: #58a6ff; text-decoration: underline; }
+  .markdown-body a:hover { color: #79c0ff; }
 </style>
 HTML
 ) \
@@ -53,6 +56,11 @@ HTML
 <script type="module">
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
   mermaid.initialize({ startOnLoad: false });
+
+  document.querySelectorAll('.markdown-body a').forEach(a => {
+    a.setAttribute('target', '_blank');
+    a.setAttribute('rel', 'noopener');
+  });
 
   document.querySelectorAll('pre.mermaid').forEach(pre => {
     const code = pre.querySelector('code');
