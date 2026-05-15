@@ -47,6 +47,8 @@ mode.select = "S"
 [keys.normal]
 "{" = ["goto_next_paragraph"]
 "}" = ["goto_prev_paragraph"]
+S-h = ":buffer-previous"
+S-l = ":buffer-next"
 
 # lazygit integration
 C-g = [
@@ -59,6 +61,10 @@ C-g = [
 [keys.normal.space]
 # Copy entire buffer into clipboard
 "space" = ["save_selection", "select_all", "yank_main_selection_to_clipboard", "jump_backward"]
+
+# Buffer management
+b.d = ":buffer-close"
+b.f = "buffer_picker"
 
 # Markdown preview no navegador com Mermaid
 m.p = ":sh ~/.config/helix/md-preview.sh '%{buffer_name}' &"
