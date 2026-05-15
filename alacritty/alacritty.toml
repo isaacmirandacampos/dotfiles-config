@@ -1,52 +1,100 @@
 [font]
 normal = { family = "JetBrainsMono Nerd Font", style = "Regular" }
-size = 14.0
-
-[shell]
-program = "zellij"
-
-[cursor]
-vi_mode_style = "Beam"
+bold = { style = "Bold" }
+italic = { style = "Italic" }
+bold_italic = { style = "Bold Italic" }
+size = 16.0
 
 [cursor.style]
-shape = "Beam"
+shape = "Block"
+blinking = "Never"
 
 [window]
-opacity = 0.95
-decorations = "none"
+opacity = 0.65
+blur = true
+decorations = "Buttonless"
+padding = { x = 2, y = 2 }
 
 [window.dimensions]
 columns = 130
 lines = 40
 
+# One Dark theme
 [colors.primary]
-background = "0x11162f"
-foreground = "0xb58900"
+background = "#282c34"
+foreground = "#979eab"
+
+[colors.cursor]
+cursor = "#cccccc"
+
+[colors.selection]
+background = "#979eab"
+text = "#282c34"
 
 [colors.normal]
-black = "0x1d202f"
-red = "0xf7768e"
-green = "0x9ece6a"
-yellow = "0xe0af68"
-blue = "0x7aa2f7"
-magenta = "0xbb9af7"
-cyan = "0x7dcfff"
-white = "0xa9b1d6"
+black = "#282c34"
+red = "#e06c75"
+green = "#98c379"
+yellow = "#e5c07b"
+blue = "#61afef"
+magenta = "#be5046"
+cyan = "#56b6c2"
+white = "#979eab"
 
 [colors.bright]
-black = "0x414868"
-red = "0xf7768e"
-green = "0x9ece6a"
-yellow = "0xe0af68"
-blue = "0x7aa2f7"
-magenta = "0xbb9af7"
-cyan = "0x7dcfff"
-white = "0xc0caf5"
+black = "#393e48"
+red = "#d19a66"
+green = "#56b6c2"
+yellow = "#e5c07b"
+blue = "#61afef"
+magenta = "#be5046"
+cyan = "#56b6c2"
+white = "#abb2bf"
 
-[[colors.indexed_colors]]
-index = 16
-color = "0xff9e64"
+[bell]
+duration = 0
 
-[[colors.indexed_colors]]
-index = 17
-color = "0xdb4b4b"
+# Keybinds — Ctrl+F sends \x14
+[[keyboard.bindings]]
+key = "F"
+mods = "Control"
+chars = "\u0014"
+
+# Shift+Enter
+[[keyboard.bindings]]
+key = "Return"
+mods = "Shift"
+chars = "\u001b[13;2u"
+
+# Ctrl+Shift+Left/Right: beginning/end of line
+[[keyboard.bindings]]
+key = "Left"
+mods = "Control|Shift"
+chars = "\u0001"
+
+[[keyboard.bindings]]
+key = "Right"
+mods = "Control|Shift"
+chars = "\u0005"
+
+# Alt+Left/Right: jump between words
+[[keyboard.bindings]]
+key = "Left"
+mods = "Alt"
+chars = "\u001bb"
+
+[[keyboard.bindings]]
+key = "Right"
+mods = "Alt"
+chars = "\u001bf"
+
+# Alt+Shift+Left/Right: beginning/end of line
+[[keyboard.bindings]]
+key = "Left"
+mods = "Alt|Shift"
+chars = "\u0001"
+
+[[keyboard.bindings]]
+key = "Right"
+mods = "Alt|Shift"
+chars = "\u0005"
