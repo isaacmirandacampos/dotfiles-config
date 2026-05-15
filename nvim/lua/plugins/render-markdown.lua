@@ -2,6 +2,17 @@ return {
 	"MeanderingProgrammer/render-markdown.nvim",
 	enabled = require("util.mode").enabled({ "neonotes" }),
 	ft = { "markdown", "mdx" },
+	keys = {
+		{
+			"<leader>mp",
+			function()
+				local file = vim.fn.expand("%:p")
+				vim.fn.jobstart({ "bash", vim.fn.expand("~/.config/helix/md-preview.sh"), file }, { detach = true })
+			end,
+			ft = "markdown",
+			desc = "Markdown Preview (browser)",
+		},
+	},
 	opts = {
 		-- Configuração anti-conceal para melhor visibilidade
 		anti_conceal = {
