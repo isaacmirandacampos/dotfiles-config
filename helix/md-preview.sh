@@ -1,6 +1,12 @@
 #!/bin/bash
 # Markdown preview with client-side Mermaid rendering
-INPUT="$1"
+RAW="${1/#\~/$HOME}"
+if [[ "$RAW" = /* ]]; then
+  INPUT="$RAW"
+else
+  INPUT="$(pwd)/$RAW"
+fi
+INPUT="$(realpath "$INPUT")"
 OUTPUT="/tmp/md-preview-$(basename "$INPUT" .md).html"
 
 pandoc "$INPUT" \

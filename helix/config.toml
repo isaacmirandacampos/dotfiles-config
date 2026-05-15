@@ -9,7 +9,7 @@ auto-completion = true
 auto-format = true
 mouse = true
 end-of-line-diagnostics = "hint"
-auto-info = false
+auto-info = true
 completion-timeout = 5
 cursorline = true
 default-yank-register = "+"
@@ -61,7 +61,7 @@ C-g = [
 "space" = ["save_selection", "select_all", "yank_main_selection_to_clipboard", "jump_backward"]
 
 # Markdown preview no navegador com Mermaid
-m.r = ":sh ~/.config/helix/md-preview.sh '%{buffer_name}' &"
+m.p = ":sh ~/.config/helix/md-preview.sh '%{buffer_name}' &"
 
 # yazi integration
 e = [
