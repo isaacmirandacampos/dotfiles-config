@@ -2,18 +2,10 @@
 set -euo pipefail
 
 PIDFILE="/tmp/notes.pid"
-NOTES_DIR="$HOME/workspaces/personal/fragmented/notes/inbox"
+BRAIN_DIR="$HOME/workspaces/personal/Brain"
 GHOSTTY="/Applications/Ghostty.app/Contents/MacOS/ghostty"
 
-mkdir -p "$NOTES_DIR"
-
-TODAY="$(date +%Y-%m-%d)"
-FILE="$NOTES_DIR/$TODAY.md"
-
-if [ ! -f "$FILE" ]; then
-  echo "# $TODAY" > "$FILE"
-  echo "" >> "$FILE"
-fi
+mkdir -p "$BRAIN_DIR/zettelkasten"
 
 # If already running, focus it
 if [ -f "$PIDFILE" ]; then
@@ -30,5 +22,5 @@ RUN_SCRIPT="$DOTFILES_DIR/neonotes/run.sh"
 
 "$GHOSTTY" \
   --title="notes" \
-  --working-directory="$NOTES_DIR" \
+  --working-directory="$BRAIN_DIR" \
   -e "$RUN_SCRIPT"

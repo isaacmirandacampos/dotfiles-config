@@ -2,7 +2,7 @@
 set -euo pipefail
 
 PIDFILE="/tmp/db.pid"
-DB_DIR="$HOME/workspaces/personal/fragmented/databases"
+DB_DIR="$HOME/workspaces/personal/Brain/services/db"
 GHOSTTY="/Applications/Ghostty.app/Contents/MacOS/ghostty"
 
 # If already running, focus it
