@@ -20,6 +20,7 @@ npm = "11.14.1"
 "npm:typescript" = "latest"
 "npm:@prisma/language-server" = "latest"
 "github:jgm/pandoc" = "latest"
+"aqua:dandavison/delta" = "latest"
 
 [settings]
 experimental = true
