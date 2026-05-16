@@ -48,4 +48,9 @@ on   = [ "g", "m" ]
 run  = "shell '~/dotfiles-config/scripts/md-preview.sh \"$1\"'"
 desc = "Markdown Preview (browser)"
 
+[[mgr.prepend_keymap]]
+on   = [ "g", "v" ]
+run  = "plugin paste-image"
+desc = "Paste image from clipboard"
+
 
