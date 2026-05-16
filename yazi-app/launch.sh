@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PIDFILE="/tmp/db.pid"
-DB_DIR="$HOME/workspaces/personal/Brain/services/db"
+PIDFILE="/tmp/finder.pid"
 GHOSTTY="/Applications/Ghostty.app/Contents/MacOS/ghostty"
 
 # If already running, focus it
@@ -15,12 +14,10 @@ if [ -f "$PIDFILE" ]; then
   rm -f "$PIDFILE"
 fi
 
-mkdir -p "$DB_DIR"
-
 DOTFILES_DIR="$HOME/dotfiles-config"
-RUN_SCRIPT="$DOTFILES_DIR/neodb/run.sh"
+RUN_SCRIPT="$DOTFILES_DIR/finder/run.sh"
 
 "$GHOSTTY" \
-  --title="db" \
-  --working-directory="$DB_DIR" \
+  --title="finder" \
+  --working-directory="$HOME" \
   -e "$RUN_SCRIPT"

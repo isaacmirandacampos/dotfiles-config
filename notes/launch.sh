@@ -5,7 +5,7 @@ PIDFILE="/tmp/notes.pid"
 BRAIN_DIR="$HOME/workspaces/personal/Brain"
 GHOSTTY="/Applications/Ghostty.app/Contents/MacOS/ghostty"
 
-mkdir -p "$BRAIN_DIR/zettelkasten"
+mkdir -p "$BRAIN_DIR"
 
 # If already running, focus it
 if [ -f "$PIDFILE" ]; then
@@ -18,7 +18,7 @@ if [ -f "$PIDFILE" ]; then
 fi
 
 DOTFILES_DIR="$HOME/dotfiles-config"
-RUN_SCRIPT="$DOTFILES_DIR/neonotes/run.sh"
+RUN_SCRIPT="$DOTFILES_DIR/notes/run.sh"
 
 "$GHOSTTY" \
   --title="notes" \

@@ -18,11 +18,15 @@ max_height = 2000
 
 [opener]
 edit = [
-    { run = 'nvim "$@"', desc = "neovim", block = true, for = "unix" },
+    { run = 'nvim "$@"', desc = "Neovim", block = true, for = "unix" },
+    { run = 'hx "$@"', desc = "Helix", block = true, for = "unix" },
     { run = 'code "$@"', desc = "VSCode", block = false, for = "unix" },
 ]
+browser = [
+    { run = 'open -a "Brave Browser" "$@"', desc = "Brave", for = "macos" },
+    { run = 'open "$@"', desc = "Default Browser", for = "macos" },
+]
 open = [
-    { run = 'nvim "$@"', desc = "Neovim", for = "linux" },
     { run = 'open "$@"', desc = "Open", for = "macos" },
 ]
 pdf = [
@@ -31,6 +35,7 @@ pdf = [
 
 [open]
 prepend_rules = [
+    { mime = "text/html", use = [ "browser", "edit" ] },
     { mime = "application/pdf", use = "pdf" },
 ]
 

@@ -48,9 +48,10 @@ PLIST
   echo "✓ $name.app instalado em $app_path"
 }
 
-create_app "Notes" "com.isaacdmcampos.notes" "$SCRIPT_DIR/neonotes"
-create_app "DB" "com.isaacdmcampos.db" "$SCRIPT_DIR/neodb"
+create_app "Notes" "com.isaacdmcampos.notes" "$SCRIPT_DIR/notes"
+create_app "DB" "com.isaacdmcampos.db" "$SCRIPT_DIR/db"
+create_app "Yazi" "com.isaacdmcampos.yazi" "$SCRIPT_DIR/yazi-app"
 
 echo ""
 echo "Apps instalados em $APPS_DIR/"
-echo "Abra o Spotlight (Cmd+Space) e busque por Notes ou DB."
+echo "Abra o Spotlight (Cmd+Space) e busque por Notes, DB ou Yazi."
