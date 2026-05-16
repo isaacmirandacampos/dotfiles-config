@@ -43,4 +43,9 @@ on   = [ "g", "i" ]
 run  = "plugin lazygit"
 desc = "run lazygit"
 
+[[mgr.prepend_keymap]]
+on   = [ "g", "m" ]
+run  = "shell '~/dotfiles-config/scripts/md-preview.sh \"$1\"'"
+desc = "Markdown Preview (browser)"
+
 

@@ -29,6 +29,9 @@ browser = [
 open = [
     { run = 'open "$@"', desc = "Open", for = "macos" },
 ]
+md-preview = [
+    { run = '~/dotfiles-config/scripts/md-preview.sh "$@"', desc = "Pandoc Preview", for = "macos" },
+]
 pdf = [
     { run = 'open -a "Brave Browser" "$@"', desc = "Brave", for = "macos" },
 ]
