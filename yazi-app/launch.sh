@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PIDFILE="/tmp/finder.pid"
+PIDFILE="/tmp/yazi.pid"
 GHOSTTY="/Applications/Ghostty.app/Contents/MacOS/ghostty"
 
 # If already running, focus it
@@ -15,9 +15,9 @@ if [ -f "$PIDFILE" ]; then
 fi
 
 DOTFILES_DIR="$HOME/dotfiles-config"
-RUN_SCRIPT="$DOTFILES_DIR/finder/run.sh"
+RUN_SCRIPT="$DOTFILES_DIR/yazi-app/run.sh"
 
 "$GHOSTTY" \
-  --title="finder" \
+  --title="yazi" \
   --working-directory="$HOME" \
   -e "$RUN_SCRIPT"

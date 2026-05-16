@@ -3,7 +3,7 @@ set -euo pipefail
 
 export PATH="$HOME/.local/share/mise/shims:$HOME/go/bin:/opt/homebrew/bin:$PATH"
 
-PIDFILE="/tmp/finder.pid"
+PIDFILE="/tmp/yazi.pid"
 
 echo $PPID > "$PIDFILE"
 cd "$HOME"
