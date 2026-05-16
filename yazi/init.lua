@@ -126,6 +126,16 @@ pref_by_location:setup({
 			sort = { "alphabetical", reverse = true, dir_first = true },
 			show_hidden = true,
 		},
+
+		{
+			location = ".*/personal/Brain",
+			sort = { "alphabetical", reverse = false, dir_first = true },
+		},
+
+		{
+			location = ".*/Brain/daily%-notes",
+			sort = { "alphabetical", reverse = true, dir_first = true },
+		},
 	},
 })
 
