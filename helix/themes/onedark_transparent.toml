@@ -5,3 +5,12 @@ inherits = "onedark"
 "ui.cursor.multi.insert" = { bg = "#2aa198" }
 "ui.cursor.multi.select" = { bg = "#6c71c4" }
 
+# Markdown headings by level
+"markup.heading.1" = { fg = "#e06c75", modifiers = ["bold"] }
+"markup.heading.2" = { fg = "#e5c07b", modifiers = ["bold"] }
+"markup.heading.3" = { fg = "#98c379", modifiers = ["bold"] }
+"markup.heading.4" = { fg = "#61afef", modifiers = ["bold"] }
+"markup.heading.5" = { fg = "#c678dd", modifiers = ["bold"] }
+"markup.heading.6" = { fg = "#56b6c2", modifiers = ["bold"] }
+"markup.heading.marker" = { fg = "#5c6370" }
+
