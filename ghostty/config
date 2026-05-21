@@ -15,8 +15,8 @@ background-opacity = 0.65
 background-blur-radius = 15
 
 # Shell
-shell-integration = none
-command = zsh
+shell-integration = fish
+command = fish
 
 
 # Clipboard
@@ -48,6 +48,18 @@ keybind = ctrl+shift+right=text:\x05
 # Keybinds — Alt+Left/Right: jump between words
 keybind = alt+left=text:\x1bb
 keybind = alt+right=text:\x1bf
+
+# Keybinds — Ctrl+Left/Right: jump between words (VSCode-style)
+keybind = ctrl+left=text:\x1bb
+keybind = ctrl+right=text:\x1bf
+
+# Keybinds — Ctrl+Backspace/Delete: delete word (VSCode-style)
+keybind = ctrl+backspace=text:\x17
+keybind = ctrl+delete=text:\x1bd
+
+# Keybinds — Ctrl+Shift+Backspace/Delete: delete to start/end of line
+keybind = ctrl+shift+backspace=text:\x15
+keybind = ctrl+shift+delete=text:\x0b
 
 # Keybinds — Alt+Shift+Left/Right: beginning/end of line
 keybind = alt+shift+left=text:\x01

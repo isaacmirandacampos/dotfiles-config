@@ -50,21 +50,23 @@ prepend_previewers = [
     { mime = "application/x-7z-compressed", run = "ouch" },
     { mime = "application/x-rar", run = "ouch" },
     { mime = "application/x-xz", run = "ouch" },
-    { name = "*.{md,json,bash,ts,js,py,go,lua,rs,sql,yaml,fish,sh,bash}", run  = 'piper -- bat -p --color=always "$1"'},
-    { name = "*.{pdb,pqr}", run = "cursor" },
+    { url = "*.{md,json,bash,ts,js,py,go,lua,rs,sql,yaml,fish,sh,bash}", run  = 'piper -- bat -p --color=always "$1"'},
+    { url = "*.{pdb,pqr}", run = "cursor" },
     { mime = "audio/*", run = "exifaudio" },
     { mime = "application/x-bittorrent", run = "torrent-preview" },
-    { name = "*.ipynb", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"'},
-    { name = "*.rst", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"'},
-    { name = "*.csv", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"'},
+    { url = "*.ipynb", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"'},
+    { url = "*.rst", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"'},
+    { url = "*.csv", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"'},
 ]
 
 [[plugin.prepend_fetchers]]
-id   = "git"
-name = "*"
-run  = "git"
+id    = "git"
+url   = "*"
+run   = "git"
+group = "file"
 
 [[plugin.prepend_fetchers]]
-id   = "git"
-name = "*/"
-run  = "git"
+id    = "git"
+url   = "*/"
+run   = "git"
+group = "dir"

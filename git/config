@@ -25,3 +25,6 @@
 
 [difftool]
 	prompt = false
+[user]
+	email = i.campos@grouplinkone.com
+	nae = Isaac de Miranda Campos

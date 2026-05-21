@@ -1,17 +1,31 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PIDFILE="/tmp/notes.pid"
+APP_NAME="notes"
+PIDFILE="/tmp/${APP_NAME}.pid"
 BRAIN_DIR="$HOME/workspaces/personal/Brain"
-GHOSTTY="/Applications/Ghostty.app/Contents/MacOS/ghostty"
 
 mkdir -p "$BRAIN_DIR"
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  GHOSTTY="/Applications/Ghostty.app/Contents/MacOS/ghostty"
+  focus_existing() {
+    osascript -e "tell application \"System Events\" to set frontmost of (first process whose unix id is $1) to true" 2>/dev/null || true
+  }
+  ghostty_class_arg=()
+else
+  GHOSTTY="$(command -v ghostty)"
+  focus_existing() {
+    hyprctl dispatch focuswindow "title:^(${APP_NAME})$" >/dev/null 2>&1 || true
+  }
+  ghostty_class_arg=(--class="com.mitchellh.ghostty.${APP_NAME}")
+fi
 
 # If already running, focus it
 if [ -f "$PIDFILE" ]; then
   PID=$(cat "$PIDFILE")
   if kill -0 "$PID" 2>/dev/null && ps -p "$PID" -o comm= 2>/dev/null | grep -q ghostty; then
-    osascript -e "tell application \"System Events\" to set frontmost of (first process whose unix id is $PID) to true" 2>/dev/null || true
+    focus_existing "$PID"
     exit 0
   fi
   rm -f "$PIDFILE"
@@ -21,6 +35,7 @@ DOTFILES_DIR="$HOME/dotfiles-config"
 RUN_SCRIPT="$DOTFILES_DIR/notes/run.sh"
 
 "$GHOSTTY" \
-  --title="notes" \
+  --title="$APP_NAME" \
+  "${ghostty_class_arg[@]}" \
   --working-directory="$BRAIN_DIR" \
   -e "$RUN_SCRIPT"

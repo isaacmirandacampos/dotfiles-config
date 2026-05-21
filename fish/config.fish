@@ -44,9 +44,11 @@ set -g fish_pager_color_selected_background --background=$selection
 # Starship
 set -g fish_cursor_default block
 
-# Homebrew
-set -gx PATH /opt/homebrew/bin $PATH
-eval (/opt/homebrew/bin/brew shellenv)
+# Homebrew (macOS only)
+if test (uname) = Darwin
+    set -gx PATH /opt/homebrew/bin $PATH
+    eval (/opt/homebrew/bin/brew shellenv)
+end
 
 alias venv="python3 -m venv .venv && source .venv/bin/activate"
 alias lg='lazygit'
@@ -54,6 +56,9 @@ alias ld='lazydocker'
 alias t='tmux-sessionizer'
 alias spf='spf -c $HOME/.config/superfile/config.toml'
 alias s='yazi'
+
+# Posting collection (grouplink-api)
+abbr --add pgl 'posting --collection "/home/isaacdmcampos/workspaces/gl/alexandria/tools/POSTING - Api Tools" --env "/home/isaacdmcampos/workspaces/gl/alexandria/tools/POSTING - Api Tools/.env.local"'
 
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
   --highlight-line \
@@ -81,13 +86,13 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
 
 set -gx EDITOR nvim
 
-set -gx PATH /opt/homebrew/opt/curl/bin $PATH
-set -gx LDFLAGS -L/opt/homebrew/opt/curl/lib
-set -gx CPPFLAGS -I/opt/homebrew/opt/curl/include
-
-set -gx PKG_CONFIG_PATH /opt/homebrew/opt/curl/lib/pkgconfig
-
-set -gx PATH /opt/homebrew/bin /opt/homebrew/sbin /usr/local/bin /usr/bin /bin /usr/sbin /sbin $PATH
+if test (uname) = Darwin
+    set -gx PATH /opt/homebrew/opt/curl/bin $PATH
+    set -gx LDFLAGS -L/opt/homebrew/opt/curl/lib
+    set -gx CPPFLAGS -I/opt/homebrew/opt/curl/include
+    set -gx PKG_CONFIG_PATH /opt/homebrew/opt/curl/lib/pkgconfig
+    set -gx PATH /opt/homebrew/bin /opt/homebrew/sbin /usr/local/bin /usr/bin /bin /usr/sbin /sbin $PATH
+end
 
 set -gx PATH bin $PATH
 set -gx PATH ~/bin $PATH
@@ -106,7 +111,11 @@ zoxide init fish --cmd cd | source
 set -x _ZO_DATA_DIR ~/.local/share/zoxide/
 
 # Enable fzf key bindings
-source (brew --prefix)/opt/fzf/shell/key-bindings.fish
+if test (uname) = Darwin
+    source (brew --prefix)/opt/fzf/shell/key-bindings.fish
+else if test -f /usr/share/fzf/key-bindings.fish
+    source /usr/share/fzf/key-bindings.fish
+end
 
 
 # tmux-sessionizer
@@ -117,7 +126,7 @@ bind \cf tmux-sessionizer
 
 
 # write
-set --export PATH /Users/isaacdmcampos/.local/bin $PATH
+set --export PATH $HOME/.local/bin $PATH
 
 # starship
 # export STARSHIP_CONFIG=~/.config/fish/starship.toml
@@ -125,10 +134,12 @@ set --export PATH /Users/isaacdmcampos/.local/bin $PATH
 # starship end
 
 # opencode
-fish_add_path "/Users/isaacdmcampos/.opencode/bin"
+fish_add_path "$HOME/.opencode/bin"
 
 
-# libpq
-fish_add_path /opt/homebrew/opt/libpq/bin
+# libpq (macOS only — on Arch it's in /usr/bin)
+if test (uname) = Darwin
+    fish_add_path /opt/homebrew/opt/libpq/bin
+end
 
 mise activate fish | source
