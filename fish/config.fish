@@ -117,16 +117,17 @@ else if test -f /usr/share/fzf/key-bindings.fish
     source /usr/share/fzf/key-bindings.fish
 end
 
-
 # tmux-sessionizer
 set PATH "$PATH":"$HOME/.config/tmux/"
 
 bind \cf tmux-sessionizer
 # tmux-sessionizer end
 
-
 # write
 set --export PATH $HOME/.local/bin $PATH
+
+# Python 
+set -gx MISE_DISABLE_TOOLS python
 
 # starship
 # export STARSHIP_CONFIG=~/.config/fish/starship.toml
@@ -135,7 +136,6 @@ set --export PATH $HOME/.local/bin $PATH
 
 # opencode
 fish_add_path "$HOME/.opencode/bin"
-
 
 # libpq (macOS only — on Arch it's in /usr/bin)
 if test (uname) = Darwin

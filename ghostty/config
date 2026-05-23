@@ -29,6 +29,9 @@ theme = onedark
 # macOS
 macos-titlebar-style = hidden
 
+# Keybinds — Ctrl+V to paste
+keybind = ctrl+v=paste_from_clipboard
+
 # Keybinds — window navigation (Cmd+Shift+Arrow)
 keybind = cmd+shift+up=goto_split:top
 keybind = cmd+shift+down=goto_split:bottom
