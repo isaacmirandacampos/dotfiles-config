@@ -66,6 +66,13 @@ C-g = [
 b.d = ":buffer-close"
 b.f = "buffer_picker"
 
+# Recarrega todos os buffers do disco (pra quando a IA edita arquivos externamente)
+R = ":reload-all"
+
+# Yank current buffer file path to clipboard
+y.p = ":sh realpath '%{buffer_name}' | wl-copy --trim-newline"
+y.r = ":sh printf '%s' '%{buffer_name}' | wl-copy"
+
 # Markdown preview no navegador com Mermaid
 m.p = ":sh ~/dotfiles-config/scripts/md-preview.sh '%{buffer_name}' &"
 

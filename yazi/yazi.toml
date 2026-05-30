@@ -18,55 +18,61 @@ max_height = 2000
 
 [opener]
 edit = [
-    { run = 'nvim "$@"', desc = "Neovim", block = true, for = "unix" },
-    { run = 'hx "$@"', desc = "Helix", block = true, for = "unix" },
-    { run = 'code "$@"', desc = "VSCode", block = false, for = "unix" },
+  { run = 'nvim "$@"', desc = "Neovim", block = true, for = "unix" },
+  { run = 'hx "$@"', desc = "Helix", block = true, for = "unix" },
+  { run = 'code "$@"', desc = "VSCode", block = false, for = "unix" },
 ]
 browser = [
-    { run = 'open -a "Brave Browser" "$@"', desc = "Brave", for = "macos" },
-    { run = 'open "$@"', desc = "Default Browser", for = "macos" },
+  { run = 'open -a "Brave Browser" "$@"', desc = "Brave", for = "macos" },
+  { run = 'open "$@"', desc = "Default Browser", for = "macos" },
+  { run = 'xdg-open "$@"', desc = "Default Browser", orphan = true, for = "linux" },
 ]
 open = [
-    { run = 'open "$@"', desc = "Open", for = "macos" },
+  { run = 'open "$@"', desc = "Open", for = "macos" },
+  { run = 'xdg-open "$@"', desc = "Open", orphan = true, for = "linux" },
 ]
 md-preview = [
-    { run = '~/dotfiles-config/scripts/md-preview.sh "$@"', desc = "Pandoc Preview", for = "macos" },
+  { run = '~/dotfiles-config/scripts/md-preview.sh "$@"', desc = "Pandoc Preview", for = "macos" },
 ]
 pdf = [
-    { run = 'open -a "Brave Browser" "$@"', desc = "Brave", for = "macos" },
+  { run = 'open -a "Brave Browser" "$@"', desc = "Brave", for = "macos" },
+  { run = 'xdg-open "$@"', desc = "Default Viewer", orphan = true, for = "linux" },
 ]
 
 [open]
 prepend_rules = [
-    { mime = "text/html", use = [ "browser", "edit" ] },
-    { mime = "application/pdf", use = "pdf" },
+  { mime = "text/html", use = [
+    "browser",
+    "edit",
+  ] },
+  { mime = "application/pdf", use = "pdf" },
 ]
 
 [plugin]
 prepend_previewers = [
-    { mime = "application/*zip", run = "ouch" },
-    { mime = "application/x-tar", run = "ouch" },
-    { mime = "application/x-bzip2", run = "ouch" },
-    { mime = "application/x-7z-compressed", run = "ouch" },
-    { mime = "application/x-rar", run = "ouch" },
-    { mime = "application/x-xz", run = "ouch" },
-    { url = "*.{md,json,bash,ts,js,py,go,lua,rs,sql,yaml,fish,sh,bash}", run  = 'piper -- bat -p --color=always "$1"'},
-    { url = "*.{pdb,pqr}", run = "cursor" },
-    { mime = "audio/*", run = "exifaudio" },
-    { mime = "application/x-bittorrent", run = "torrent-preview" },
-    { url = "*.ipynb", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"'},
-    { url = "*.rst", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"'},
-    { url = "*.csv", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"'},
+  { mime = "application/*zip", run = "ouch" },
+  { mime = "application/x-tar", run = "ouch" },
+  { mime = "application/x-bzip2", run = "ouch" },
+  { mime = "application/x-7z-compressed", run = "ouch" },
+  { mime = "application/x-rar", run = "ouch" },
+  { mime = "application/x-xz", run = "ouch" },
+  { url = "*.{md,json,bash,ts,js,py,go,lua,rs,sql,yaml,fish,sh,bash}", run = 'piper -- bat -p --color=always "$1"' },
+  { url = "*.{pdb,pqr}", run = "cursor" },
+  { mime = "audio/*", run = "exifaudio" },
+  { mime = "application/x-bittorrent", run = "torrent-preview" },
+  { url = "*.ipynb", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"' },
+  { url = "*.rst", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"' },
+  { url = "*.csv", run = 'piper -- rich -j --left --panel=rounded --guides --line-numbers --force-terminal "$1"' },
 ]
 
 [[plugin.prepend_fetchers]]
-id    = "git"
-url   = "*"
-run   = "git"
+id = "git"
+url = "*"
+run = "git"
 group = "file"
 
 [[plugin.prepend_fetchers]]
-id    = "git"
-url   = "*/"
-run   = "git"
+id = "git"
+url = "*/"
+run = "git"
 group = "dir"

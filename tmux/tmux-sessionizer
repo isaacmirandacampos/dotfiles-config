@@ -1,29 +1,58 @@
 #!/usr/bin/env bash
+# Session picker pro tmux:
+# - Lista sessões abertas; Enter pula pra selecionada
+# - Se o nome digitado não existir como sessão, cria uma nova com esse nome
+# - Ctrl-D mata a sessão highlight (lista recarrega)
 
-if [[ $# -eq 1 ]]; then
-    selected=$1
+# NOTA: sem `set -e` porque fzf retorna exit 1 quando o usuário aperta Enter
+# sem match (que é justamente o caso "criar sessão nova") — o script tem que
+# sobreviver isso pra ler a query.
+set -uo pipefail
+
+SESSIONS=$(tmux list-sessions -F '#{session_name}' 2>/dev/null || true)
+
+# fzf:
+#   --print-query → query é impressa como primeira linha do output (mesmo sem match)
+#   ctrl-d → mata sessão sob cursor e recarrega lista
+FZF_OUTPUT=$(printf '%s\n' "$SESSIONS" | fzf \
+  --print-query \
+  --prompt='session> ' \
+  --header='Enter: switch/create | Ctrl-D: kill' \
+  --layout=reverse \
+  --bind 'ctrl-d:execute-silent(tmux kill-session -t {})+reload(tmux list-sessions -F "#{session_name}" 2>/dev/null || true)' \
+  || true)
+
+# tail -1: pega seleção (linha 2) se existir, senão pega a query (linha 1)
+SELECTED=$(printf '%s' "$FZF_OUTPUT" | tail -1)
+
+if [[ -z $SELECTED ]]; then
+  exit 0
+fi
+
+# Sessão existe? Pula pra ela
+if tmux has-session -t="$SELECTED" 2>/dev/null; then
+  if [[ -z ${TMUX:-} ]]; then
+    tmux attach -t "$SELECTED"
+  else
+    tmux switch-client -t "$SELECTED"
+  fi
+  exit 0
+fi
+
+# Não existe: cria nova com o nome digitado (sanitiza dots)
+CLEAN_NAME=$(echo "$SELECTED" | tr . _)
+
+# cwd da sessão nova: se o nome bater com dir em ~/workspaces, usa esse path;
+# senão $HOME
+if [[ -d "$HOME/workspaces/$CLEAN_NAME" ]]; then
+  NEW_CWD="$HOME/workspaces/$CLEAN_NAME"
 else
-    selected=$(find ~/workspaces f -mindepth 1 -maxdepth 1 -type d | fzf)
+  NEW_CWD="$HOME"
 fi
 
-if [[ -z $selected ]]; then
-    exit 0
-fi
-
-selected_name=$(basename "$selected" | tr . _)
-tmux_running=$(pgrep tmux)
-
-if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-    tmux new-session -s $selected_name -c $selected
-    exit 0
-fi
-
-if ! tmux has-session -t=$selected_name 2> /dev/null; then
-    tmux new-session -ds $selected_name -c $selected
-fi
-
-if [[ -z $TMUX ]]; then
-    tmux attach -t $selected_name
+if [[ -z ${TMUX:-} ]]; then
+  tmux new-session -s "$CLEAN_NAME" -c "$NEW_CWD"
 else
-    tmux switch-client -t $selected_name
+  tmux new-session -ds "$CLEAN_NAME" -c "$NEW_CWD"
+  tmux switch-client -t "$CLEAN_NAME"
 fi

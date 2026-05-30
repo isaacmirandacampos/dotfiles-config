@@ -4,6 +4,13 @@
 command = "typescript-language-server"
 args = ["--stdio"]
 
+# O typescript-language-server não traz o tsserver embutido: ele procura
+# node_modules/typescript a partir do workspace root. Em monorepos onde a raiz
+# não tem o pacote (o TS vive em subprojetos), o LSP falha no initialize e some
+# com TODOS os diagnósticos. Apontamos para o typescript global do mise.
+[language-server.typescript-language-server.config]
+tsserver.path = "/home/isaacdmcampos/.local/share/mise/installs/npm-typescript/latest/lib/node_modules/typescript/lib/tsserver.js"
+
 [language-server.pyright]
 command = "pyright-langserver"
 args = ["--stdio"]
@@ -65,12 +72,24 @@ args = ["lsp-proxy"]
 command = "tailwindcss-language-server"
 args = ["--stdio"]
 
+[language-server.eslint]
+command = "vscode-eslint-language-server"
+args = ["--stdio"]
+
+[language-server.eslint.config]
+validate = "on"
+run = "onType"
+
+[language-server.eslint.config.workingDirectory]
+mode = "auto"
+
 # ── Languages ────────────────────────────────────────────────
 
 [[language]]
 name = "typescript"
 language-servers = [
   { name = "typescript-language-server", except-features = ["format"] },
+  "eslint",
 ]
 formatter = { command = "prettier", args = ["--parser", "typescript"] }
 auto-format = true
@@ -79,6 +98,7 @@ auto-format = true
 name = "tsx"
 language-servers = [
   { name = "typescript-language-server", except-features = ["format"] },
+  "eslint",
 ]
 formatter = { command = "prettier", args = ["--parser", "typescript"] }
 auto-format = true
@@ -87,6 +107,7 @@ auto-format = true
 name = "javascript"
 language-servers = [
   { name = "typescript-language-server", except-features = ["format"] },
+  "eslint",
 ]
 formatter = { command = "prettier", args = ["--parser", "babel"] }
 auto-format = true
@@ -95,6 +116,7 @@ auto-format = true
 name = "jsx"
 language-servers = [
   { name = "typescript-language-server", except-features = ["format"] },
+  "eslint",
 ]
 formatter = { command = "prettier", args = ["--parser", "babel"] }
 auto-format = true

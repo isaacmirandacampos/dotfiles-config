@@ -110,4 +110,10 @@ HTML
 ) \
   -o "$OUTPUT"
 
-open "$OUTPUT"
+if command -v xdg-open >/dev/null 2>&1; then
+  xdg-open "$OUTPUT"
+elif command -v open >/dev/null 2>&1; then
+  open "$OUTPUT"
+else
+  echo "Não encontrei xdg-open nem open. Arquivo gerado em: $OUTPUT"
+fi
