@@ -136,7 +136,7 @@ auto-format = true
 [[language]]
 name = "markdown"
 language-servers = ["marksman"]
-formatter = { command = "prettier", args = ["--parser", "markdown"] }
+formatter = { command = "prettier", args = ["--parser", "markdown", "--prose-wrap", "preserve"] }
 auto-format = true
 
 [[language]]

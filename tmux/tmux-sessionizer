@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # Session picker pro tmux:
-# - Lista sessões abertas; Enter pula pra selecionada
+# - Lista sessões abertas com RAM (soma do RSS de todos os processos dos painéis)
+#   e data de criação; ordena da mais nova para a mais antiga
+# - Enter pula pra selecionada
 # - Se o nome digitado não existir como sessão, cria uma nova com esse nome
 # - Ctrl-D mata a sessão highlight (lista recarrega)
 
@@ -9,21 +11,91 @@
 # sobreviver isso pra ler a query.
 set -uo pipefail
 
-SESSIONS=$(tmux list-sessions -F '#{session_name}' 2>/dev/null || true)
+SELF="$(readlink -f "$0" 2>/dev/null || echo "$0")"
+
+# Monta a lista para o fzf. Cada linha é TSV: <nome>\t<display alinhado>.
+#   - campo 1 (oculto no fzf via --with-nth=2) = nome puro, usado pela lógica
+#   - campo 2 = "nome  RAM  criada em" já alinhado em colunas
+build_list() {
+  # Snapshot único de todos os processos: "pid ppid rss_kb" (rss em KB).
+  local ps_snap
+  ps_snap=$(ps -eo pid=,ppid=,rss= 2>/dev/null)
+
+  local names=() rams=() dates=() maxname=0 maxram=0
+  local created name pids rss_kb ram_h cdate
+
+  while IFS='|' read -r created name; do
+    [[ -z $name ]] && continue
+
+    # PIDs dos painéis (uma raiz por painel, em todas as janelas da sessão).
+    pids=$(tmux list-panes -s -t "$name" -F '#{pane_pid}' 2>/dev/null | tr '\n' ' ')
+
+    # Soma o RSS das raízes + todos os descendentes (BFS sobre o snapshot).
+    rss_kb=$(awk -v roots="$pids" '
+      { rss[$1]=$3; ch[$2]=ch[$2]" "$1 }
+      END {
+        n=split(roots, q, " "); head=1; tail=n; total=0
+        while (head<=tail) {
+          cur=q[head]; head++
+          if (cur=="" || seen[cur]) continue
+          seen[cur]=1; total+=rss[cur]
+          m=split(ch[cur], kids, " ")
+          for (j=1;j<=m;j++) if (kids[j]!="") { tail++; q[tail]=kids[j] }
+        }
+        print total+0
+      }' <<<"$ps_snap")
+
+    # RAM legível.
+    ram_h=$(awk -v k="$rss_kb" 'BEGIN {
+      if (k>=1048576) printf "%.1fG", k/1048576;
+      else if (k>=1024) printf "%.0fM", k/1024;
+      else printf "%dK", k
+    }')
+
+    cdate=$(date -d "@$created" '+%Y-%m-%d %H:%M' 2>/dev/null)
+
+    names+=("$name"); rams+=("$ram_h"); dates+=("$cdate")
+    (( ${#name}  > maxname )) && maxname=${#name}
+    (( ${#ram_h} > maxram  )) && maxram=${#ram_h}
+  done < <(tmux list-sessions -F '#{session_created}|#{session_name}' 2>/dev/null | sort -rn -t'|' -k1)
+
+  local i
+  for i in "${!names[@]}"; do
+    printf '%s\t%-*s   %*s   %s\n' \
+      "${names[$i]}" "$maxname" "${names[$i]}" "$maxram" "${rams[$i]}" "${dates[$i]}"
+  done
+}
+
+# Modo usado pelo reload do fzf (Ctrl-D): só imprime a lista e sai.
+if [[ "${1:-}" == "--list" ]]; then
+  build_list
+  exit 0
+fi
 
 # fzf:
 #   --print-query → query é impressa como primeira linha do output (mesmo sem match)
-#   ctrl-d → mata sessão sob cursor e recarrega lista
-FZF_OUTPUT=$(printf '%s\n' "$SESSIONS" | fzf \
+#   --with-nth=2 → mostra a coluna formatada; --nth=1 → busca SÓ o nome puro
+#     (campo 1 oculto), então a filtragem ignora RAM/data/espaços de alinhamento
+#   ctrl-d → mata a sessão sob o cursor (nome = campo 1, {1}) e recarrega
+FZF_OUTPUT=$(build_list | fzf \
   --print-query \
+  --delimiter='\t' \
+  --with-nth=2 \
+  --nth=1 \
   --prompt='session> ' \
-  --header='Enter: switch/create | Ctrl-D: kill' \
+  --header='Enter: switch/create | Ctrl-D: kill   ·   nome / RAM / criada' \
   --layout=reverse \
-  --bind 'ctrl-d:execute-silent(tmux kill-session -t {})+reload(tmux list-sessions -F "#{session_name}" 2>/dev/null || true)' \
+  --bind "ctrl-d:execute-silent(tmux kill-session -t {1})+reload($SELF --list)" \
   || true)
 
-# tail -1: pega seleção (linha 2) se existir, senão pega a query (linha 1)
-SELECTED=$(printf '%s' "$FZF_OUTPUT" | tail -1)
+# Última linha: se contém TAB é uma seleção (TSV) → extrai o nome (campo 1);
+# senão é a query crua digitada (caso "criar sessão nova").
+SELECTED_RAW=$(printf '%s' "$FZF_OUTPUT" | tail -1)
+if printf '%s' "$SELECTED_RAW" | grep -q $'\t'; then
+  SELECTED=$(printf '%s' "$SELECTED_RAW" | cut -f1)
+else
+  SELECTED=$SELECTED_RAW
+fi
 
 if [[ -z $SELECTED ]]; then
   exit 0
