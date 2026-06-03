@@ -60,12 +60,17 @@ alias s='yazi'
 # Posting collection (grouplink-api)
 abbr --add pgl 'posting --collection "/home/isaacdmcampos/workspaces/gl/alexandria/tools/POSTING - Api Tools" --env "/home/isaacdmcampos/workspaces/gl/alexandria/tools/POSTING - Api Tools/.env.local"'
 
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
+# fzf: opções montadas como LISTA e unidas com espaço (string join) para garantir
+# UMA linha só — sem newlines embutidos (que quebram o eval do plugin fzf.fish em
+# __fzf_open/__fzf_cd/etc) e SEM referenciar a própria variável (evita o acúmulo
+# que acontecia ao re-sourcing/shells aninhados, já que ela é exportada).
+set -gx FZF_DEFAULT_OPTS (string join ' ' -- \
+  --height=40% \
   --highlight-line \
   --info=inline-right \
   --ansi \
   --layout=reverse \
-  --border=none
+  --border=none \
   --color=bg+:#3e4452 \
   --color=bg:#282c34 \
   --color=border:#3e4452 \
@@ -81,8 +86,7 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS \
   --color=query:#abb2bf:regular \
   --color=scrollbar:#3e4452 \
   --color=separator:#3e4452 \
-  --color=spinner:#e06c75 \
-"
+  --color=spinner:#e06c75)
 
 set -gx EDITOR nvim
 
