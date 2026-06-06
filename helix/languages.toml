@@ -87,6 +87,10 @@ mode = "auto"
 
 [[language]]
 name = "typescript"
+# Em monorepos: ancora o LSP no diretório do subprojeto (que tem tsconfig.json/
+# package.json + node_modules com @types/jest etc.), e não no git root, onde o
+# tsserver não acha os tipos do test runner ("Cannot find name 'describe'").
+roots = ["tsconfig.json", "package.json"]
 language-servers = [
   { name = "typescript-language-server", except-features = ["format"] },
   "eslint",
@@ -96,6 +100,7 @@ auto-format = true
 
 [[language]]
 name = "tsx"
+roots = ["tsconfig.json", "package.json"]
 language-servers = [
   { name = "typescript-language-server", except-features = ["format"] },
   "eslint",
@@ -105,6 +110,7 @@ auto-format = true
 
 [[language]]
 name = "javascript"
+roots = ["tsconfig.json", "package.json"]
 language-servers = [
   { name = "typescript-language-server", except-features = ["format"] },
   "eslint",
@@ -114,6 +120,7 @@ auto-format = true
 
 [[language]]
 name = "jsx"
+roots = ["tsconfig.json", "package.json"]
 language-servers = [
   { name = "typescript-language-server", except-features = ["format"] },
   "eslint",
