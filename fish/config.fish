@@ -107,19 +107,25 @@ set -g GOPATH $HOME/go
 set -gx PATH $GOPATH/bin $PATH
 
 set -g FZF_PREVIEW_FILE_CMD "bat --style=numbers --color=always --line-range :500"
-set -g FZF_LEGACY_KEYBINDINGS 0
 
 ## Zoxigen
 
 zoxide init fish --cmd cd | source
 set -x _ZO_DATA_DIR ~/.local/share/zoxide/
 
-# Enable fzf key bindings
-if test (uname) = Darwin
-    source (brew --prefix)/opt/fzf/shell/key-bindings.fish
-else if test -f /usr/share/fzf/key-bindings.fish
-    source /usr/share/fzf/key-bindings.fish
-end
+# fzf: integração oficial do próprio binário (substitui o antigo plugin jethrokuan).
+# Robusta a aspas/quebras de linha (não usa eval) e acompanha a versão do fzf.
+# Ativa: ctrl-t (arquivos), ctrl-r (histórico), alt-c (cd), shift-tab (completion).
+fzf --fish | source
+
+# Recria os binds que o plugin antigo tinha e a integração oficial não traz:
+#   ctrl-g → abrir arquivo (xdg-open) | ctrl-o → abrir no $EDITOR | alt-C → cd c/ ocultos
+bind \cg _fzf_open_file
+bind \co _fzf_edit_file
+bind \eC _fzf_cd_hidden
+bind -M insert \cg _fzf_open_file
+bind -M insert \co _fzf_edit_file
+bind -M insert \eC _fzf_cd_hidden
 
 # tmux-sessionizer
 set PATH "$PATH":"$HOME/.config/tmux/"
